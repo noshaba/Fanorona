@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05DD10311A349E6A001E96F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DD10301A349E6A001E96F6 /* AppDelegate.swift */; };
+		05DD10331A349E6A001E96F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DD10321A349E6A001E96F6 /* ViewController.swift */; };
+		05DD10361A349E6A001E96F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05DD10341A349E6A001E96F6 /* Main.storyboard */; };
+		05DD10381A349E6A001E96F6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05DD10371A349E6A001E96F6 /* Images.xcassets */; };
+		05DD103B1A349E6A001E96F6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05DD10391A349E6A001E96F6 /* LaunchScreen.xib */; };
+		05DD10471A349E6A001E96F6 /* FanoronaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DD10461A349E6A001E96F6 /* FanoronaTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		05DD10411A349E6A001E96F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05DD10231A349E6A001E96F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 05DD102A1A349E6A001E96F6;
+			remoteInfo = Fanorona;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		05DD102B1A349E6A001E96F6 /* Fanorona.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fanorona.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		05DD102F1A349E6A001E96F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05DD10301A349E6A001E96F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		05DD10321A349E6A001E96F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		05DD10351A349E6A001E96F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		05DD10371A349E6A001E96F6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		05DD103A1A349E6A001E96F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		05DD10401A349E6A001E96F6 /* FanoronaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FanoronaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		05DD10451A349E6A001E96F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05DD10461A349E6A001E96F6 /* FanoronaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanoronaTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		05DD10281A349E6A001E96F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05DD103D1A349E6A001E96F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		05DD10221A349E6A001E96F6 = {
+			isa = PBXGroup;
+			children = (
+				05DD102D1A349E6A001E96F6 /* Fanorona */,
+				05DD10431A349E6A001E96F6 /* FanoronaTests */,
+				05DD102C1A349E6A001E96F6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		05DD102C1A349E6A001E96F6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05DD102B1A349E6A001E96F6 /* Fanorona.app */,
+				05DD10401A349E6A001E96F6 /* FanoronaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		05DD102D1A349E6A001E96F6 /* Fanorona */ = {
+			isa = PBXGroup;
+			children = (
+				05DD10301A349E6A001E96F6 /* AppDelegate.swift */,
+				05DD10321A349E6A001E96F6 /* ViewController.swift */,
+				05DD10341A349E6A001E96F6 /* Main.storyboard */,
+				05DD10371A349E6A001E96F6 /* Images.xcassets */,
+				05DD10391A349E6A001E96F6 /* LaunchScreen.xib */,
+				05DD102E1A349E6A001E96F6 /* Supporting Files */,
+			);
+			path = Fanorona;
+			sourceTree = "<group>";
+		};
+		05DD102E1A349E6A001E96F6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				05DD102F1A349E6A001E96F6 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		05DD10431A349E6A001E96F6 /* FanoronaTests */ = {
+			isa = PBXGroup;
+			children = (
+				05DD10461A349E6A001E96F6 /* FanoronaTests.swift */,
+				05DD10441A349E6A001E96F6 /* Supporting Files */,
+			);
+			path = FanoronaTests;
+			sourceTree = "<group>";
+		};
+		05DD10441A349E6A001E96F6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				05DD10451A349E6A001E96F6 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		05DD102A1A349E6A001E96F6 /* Fanorona */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05DD104A1A349E6A001E96F6 /* Build configuration list for PBXNativeTarget "Fanorona" */;
+			buildPhases = (
+				05DD10271A349E6A001E96F6 /* Sources */,
+				05DD10281A349E6A001E96F6 /* Frameworks */,
+				05DD10291A349E6A001E96F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fanorona;
+			productName = Fanorona;
+			productReference = 05DD102B1A349E6A001E96F6 /* Fanorona.app */;
+			productType = "com.apple.product-type.application";
+		};
+		05DD103F1A349E6A001E96F6 /* FanoronaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05DD104D1A349E6A001E96F6 /* Build configuration list for PBXNativeTarget "FanoronaTests" */;
+			buildPhases = (
+				05DD103C1A349E6A001E96F6 /* Sources */,
+				05DD103D1A349E6A001E96F6 /* Frameworks */,
+				05DD103E1A349E6A001E96F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				05DD10421A349E6A001E96F6 /* PBXTargetDependency */,
+			);
+			name = FanoronaTests;
+			productName = FanoronaTests;
+			productReference = 05DD10401A349E6A001E96F6 /* FanoronaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		05DD10231A349E6A001E96F6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Noshaba Cheema";
+				TargetAttributes = {
+					05DD102A1A349E6A001E96F6 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					05DD103F1A349E6A001E96F6 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 05DD102A1A349E6A001E96F6;
+					};
+				};
+			};
+			buildConfigurationList = 05DD10261A349E6A001E96F6 /* Build configuration list for PBXProject "Fanorona" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 05DD10221A349E6A001E96F6;
+			productRefGroup = 05DD102C1A349E6A001E96F6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				05DD102A1A349E6A001E96F6 /* Fanorona */,
+				05DD103F1A349E6A001E96F6 /* FanoronaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		05DD10291A349E6A001E96F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05DD10361A349E6A001E96F6 /* Main.storyboard in Resources */,
+				05DD103B1A349E6A001E96F6 /* LaunchScreen.xib in Resources */,
+				05DD10381A349E6A001E96F6 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05DD103E1A349E6A001E96F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		05DD10271A349E6A001E96F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05DD10331A349E6A001E96F6 /* ViewController.swift in Sources */,
+				05DD10311A349E6A001E96F6 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05DD103C1A349E6A001E96F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05DD10471A349E6A001E96F6 /* FanoronaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		05DD10421A349E6A001E96F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 05DD102A1A349E6A001E96F6 /* Fanorona */;
+			targetProxy = 05DD10411A349E6A001E96F6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		05DD10341A349E6A001E96F6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05DD10351A349E6A001E96F6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		05DD10391A349E6A001E96F6 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05DD103A1A349E6A001E96F6 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		05DD10481A349E6A001E96F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		05DD10491A349E6A001E96F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		05DD104B1A349E6A001E96F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Fanorona/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		05DD104C1A349E6A001E96F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Fanorona/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		05DD104E1A349E6A001E96F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FanoronaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fanorona.app/Fanorona";
+			};
+			name = Debug;
+		};
+		05DD104F1A349E6A001E96F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FanoronaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fanorona.app/Fanorona";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		05DD10261A349E6A001E96F6 /* Build configuration list for PBXProject "Fanorona" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05DD10481A349E6A001E96F6 /* Debug */,
+				05DD10491A349E6A001E96F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05DD104A1A349E6A001E96F6 /* Build configuration list for PBXNativeTarget "Fanorona" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05DD104B1A349E6A001E96F6 /* Debug */,
+				05DD104C1A349E6A001E96F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		05DD104D1A349E6A001E96F6 /* Build configuration list for PBXNativeTarget "FanoronaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05DD104E1A349E6A001E96F6 /* Debug */,
+				05DD104F1A349E6A001E96F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 05DD10231A349E6A001E96F6 /* Project object */;
+}
