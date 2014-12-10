@@ -256,11 +256,11 @@
             </objects>
             <point key="canvasLocation" x="-154" y="870"/>
         </scene>
-        <!--View Controller-->
+        <!--Fanorona View Controller-->
         <scene sceneID="kxJ-eL-6N2">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hpQ-Sh-zNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="mgu-DY-eqP" sceneMemberID="viewController">
+                <viewController id="mgu-DY-eqP" customClass="FanoronaViewController" customModule="Fanorona" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="czk-eb-fhp"/>
                         <viewControllerLayoutGuide type="bottom" id="OxM-Ci-hYP"/>
@@ -281,77 +281,33 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="prl-Ad-oaL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="SgA-VJ-j9S"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FfE-Gz-ekk">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="iCY-O7-xfn">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="SgA-VJ-j9S"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="SgA-VJ-j9S"/>
-                                    </mask>
-                                </variation>
-                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OxM-Ci-hYP" firstAttribute="top" secondItem="prl-Ad-oaL" secondAttribute="bottom" constant="90" id="4L8-C7-twn"/>
                             <constraint firstItem="0bt-Kq-6Dl" firstAttribute="top" secondItem="BIv-00-MhW" secondAttribute="topMargin" constant="-4" id="AkV-QC-Osl">
                                 <variation key="heightClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="0bt-Kq-6Dl" secondAttribute="trailing" id="bMs-Kn-dxC"/>
                             <constraint firstItem="0bt-Kq-6Dl" firstAttribute="leading" secondItem="BIv-00-MhW" secondAttribute="leading" id="nUB-LI-iAu"/>
-                            <constraint firstItem="0bt-Kq-6Dl" firstAttribute="centerX" secondItem="prl-Ad-oaL" secondAttribute="centerX" id="nYf-OV-g9W"/>
-                            <constraint firstItem="prl-Ad-oaL" firstAttribute="top" secondItem="0bt-Kq-6Dl" secondAttribute="bottom" constant="70" id="zzv-gu-IPp"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="0bt-Kq-6Dl"/>
-                                <exclude reference="prl-Ad-oaL"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="AkV-QC-Osl"/>
                                 <exclude reference="bMs-Kn-dxC"/>
                                 <exclude reference="nUB-LI-iAu"/>
-                                <exclude reference="nYf-OV-g9W"/>
-                                <exclude reference="zzv-gu-IPp"/>
-                                <exclude reference="4L8-C7-twn"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="subviews">
                                 <include reference="0bt-Kq-6Dl"/>
-                                <include reference="prl-Ad-oaL"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="AkV-QC-Osl"/>
                                 <include reference="bMs-Kn-dxC"/>
                                 <include reference="nUB-LI-iAu"/>
-                                <include reference="nYf-OV-g9W"/>
-                                <include reference="zzv-gu-IPp"/>
-                                <include reference="4L8-C7-twn"/>
                             </mask>
                         </variation>
                     </view>
@@ -361,7 +317,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="s71-Zv-5Yi"/>
+        <segue reference="o6k-eM-j8U"/>
         <segue reference="0hk-dq-A1u"/>
     </inferredMetricsTieBreakers>
 </document>
