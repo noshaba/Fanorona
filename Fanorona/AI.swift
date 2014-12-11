@@ -9,6 +9,23 @@
 import Foundation
 
 class AI {
+    enum UtilType{
+        case Random
+    }
+    
+    var utilType: UtilType
+    var rootNode: AINode
+    
+    init(utilType: UtilType, gameBoard: Board){
+        self.utilType = utilType
+        rootNode = AINode(node: gameBoard)
+    }
+    
+    func getBestMove() -> Move {
+        let possibleMoves = rootNode.node.getAllPossibleMoves()
+        return possibleMoves[Int(arc4random_uniform(UInt32(possibleMoves.count)))]
+    }
+    
     class AINode {
         var utilVal: Int!
         var node: Board

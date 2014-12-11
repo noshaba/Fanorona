@@ -10,12 +10,12 @@ import UIKit
 
 class FanoronaViewController: UIViewController{
     let board = Board()
-    var boardWidth: Int!
-    var boardHeight: Int!
+    var boardWidth: Int
+    var boardHeight: Int
     var time: Int!
     var aiVersion: Int?
     var aiDepth: Int?
-    var goalState: Int!
+    var goalState: Board.GoalState
     var fromX: Int!
     var fromY: Int!
     var captureX: Int!
@@ -39,16 +39,16 @@ class FanoronaViewController: UIViewController{
     override init() {
         boardWidth = 9
         boardHeight = 5
-        isOpponentAI = true;
+        isOpponentAI = true
         if isOpponentAI {
             aiVersion = 0
             aiDepth = 2
         }
-        goalState = 0
-        isStoneSelected = false;
-        forceUserToMove = false;
-        mustDecideCaptureDirection = false;
-        isGameOver = false;
+        goalState = .Continue
+        isStoneSelected = false
+        forceUserToMove = false
+        mustDecideCaptureDirection = false
+        isGameOver = false
         board.reset(boardWidth, y: boardHeight)
         super.init()
     }
