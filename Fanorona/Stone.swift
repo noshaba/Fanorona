@@ -20,7 +20,7 @@ class Stone {
     var x: Int
     var y: Int
     var color: UIColor
-    var sacrifice: Bool
+    var isSacrifice: Bool
     var invertIntersection: Bool
     var isStrongIntersection: Bool
     var prevPositions = [Position]()
@@ -30,10 +30,10 @@ class Stone {
         self.x = x
         self.y = y
         self.color = stoneColor
-        self.sacrifice = false
+        self.isSacrifice = false
         self.invertIntersection = false
         self.isStrongIntersection = false
-        self.sacrifice = false
+        self.isSacrifice = false
     }
     
     func setInvertIntersectionType(size_x: Int, size_y: Int) {
@@ -55,6 +55,11 @@ class Stone {
     
     func isSameDirection(pos: Position) -> Bool{
         return prevDirection == pos
+    }
+    
+    func clearHistory(){
+        prevPositions.removeAll()
+        prevDirection = nil
     }
 
     

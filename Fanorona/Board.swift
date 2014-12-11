@@ -200,4 +200,105 @@ class Board {
         }
         return false
     }
+    
+    func getAllPossibleMoves() -> [Move] {
+        var moves = [Move]()
+        var stones = [Stone]()
+        if multiMovePos != nil {
+            stones.append(getStone(multiMovePos!.x,y: multiMovePos!.y)!)
+        } else {
+            for stone in state {
+                if stone.color == turn {
+                    stones.append(stone)
+                }
+            }
+        }
+        for stone in stones {
+            let moveFromOneStone = getPossibleMoves(stone)
+            for position in moveFromOneStone {
+                if(isPaika(turn)){
+                    moves.append(Move(stone: stone,nextPos: position,moveType: moveStone(stone,nextX: position.x,nextY: position.y)))
+                } else {
+                    if !isMoveAbleToCapture(stone, nextX: position.x, nextY: position.y){
+                        continue
+                    }
+                    moves.append(Move(stone: stone,nextPos: position,moveType: moveStone(stone,nextX: position.x,nextY: position.y)))
+                }
+            }
+        }
+        return moves
+    }
+    
+    func moveStone(stone: Stone, nextX: Int, nextY: Int) -> MoveType {
+        if turn != stone.color {
+            println("NOT YOUR TURN!")
+            return .Err
+        }
+        let currentX = stone.x
+        let currentY = stone.y
+        if multiMovePos != nil && multiMovePos != Position(x: currentX,y: currentY){
+            return .Err
+        }
+        let diffX = nextX - currentX
+        let diffY = nextY - currentY
+        var withdrawal = false
+        var approach = false
+        if !posIsEmpty(nextX, y: nextY) || !posIsValid(nextX, y: nextY){
+            return .Err
+        }
+        if stone.isStrongIntersection {
+            if (currentX != nextX || currentY - 1 != nextY) &&
+                (currentX - 1 != nextX || currentY + 1 != nextY) &&
+                (currentX - 1 != nextX || currentY - 1 != nextY){
+                if (currentX + 1 != nextX || currentY + 1 != nextY) &&
+                    (currentX + 1 != nextX || currentY - 1 != nextY) &&
+                    (currentX != nextX || currentY + 1 != nextY){
+                    if (currentX != nextX || currentY - 1 != nextY) &&
+                        (currentX - 1 != nextX || currentY != nextY) &&
+                        (currentX + 1 != nextX || currentY != nextY){
+                            return .Err
+                    }
+                }
+            }
+        } else if ((currentX != nextX || currentY + 1 != nextY) &&
+            (currentX != nextX || currentY - 1 != nextY) &&
+            (currentX - 1 != nextX || currentY != nextY) &&
+            (currentX + 1 != nextX || currentY != nextY)) {
+            return .Err
+        }
+        if isPaika(turn){
+            return .Paika
+        }
+        let approachStn = getStone(currentX + 2 * diffX, y: currentY + 2 * diffY)
+        let withdrawalStn = getStone(currentX - diffX, y: currentY - diffY)
+        if withdrawalStn != nil && stone.color != withdrawalStn?.color {
+            withdrawal = true
+        }
+        if approachStn != nil && stone.color != approachStn?.color {
+            approach = true
+        }
+        if !approach && !withdrawal{
+            return .Err
+        }
+        if stone.isSameDirection(Position(x: diffX, y: diffY)){
+            return .Err
+        }
+        if stone.posIsVisited(Position(x: nextX, y: nextY)){
+            return .Err
+        }
+        if approach && withdrawal {
+            if withdrawalStn!.isSacrifice {
+                return .Approach
+            }
+            if approachStn!.isSacrifice {
+                return .Withdrawal
+            }
+            return .Sacrifice
+        } else {
+            if approach {
+                return .Approach
+            }
+            return .Withdrawal
+        }
+    }
 }

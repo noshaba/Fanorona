@@ -17,6 +17,7 @@
 		05EA7D151A37CA9800C9EEB4 /* Stone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EA7D141A37CA9800C9EEB4 /* Stone.swift */; };
 		05EA7D171A37DCFA00C9EEB4 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EA7D161A37DCFA00C9EEB4 /* Position.swift */; };
 		05EA7D191A380F7200C9EEB4 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EA7D181A380F7200C9EEB4 /* Board.swift */; };
+		05EA7D1B1A38668A00C9EEB4 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EA7D1A1A38668900C9EEB4 /* Move.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		05EA7D141A37CA9800C9EEB4 /* Stone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stone.swift; sourceTree = "<group>"; };
 		05EA7D161A37DCFA00C9EEB4 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		05EA7D181A380F7200C9EEB4 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		05EA7D1A1A38668900C9EEB4 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				05DD10301A349E6A001E96F6 /* AppDelegate.swift */,
 				05DD10321A349E6A001E96F6 /* ViewController.swift */,
 				05EA7D161A37DCFA00C9EEB4 /* Position.swift */,
+				05EA7D1A1A38668900C9EEB4 /* Move.swift */,
 				05EA7D181A380F7200C9EEB4 /* Board.swift */,
 				05EA7D0E1A37C83C00C9EEB4 /* FanoronaViewController.swift */,
 				05EA7D141A37CA9800C9EEB4 /* Stone.swift */,
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05EA7D1B1A38668A00C9EEB4 /* Move.swift in Sources */,
 				05EA7D0F1A37C83C00C9EEB4 /* FanoronaViewController.swift in Sources */,
 				05DD10331A349E6A001E96F6 /* ViewController.swift in Sources */,
 				05EA7D191A380F7200C9EEB4 /* Board.swift in Sources */,

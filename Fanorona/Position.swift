@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Position : Equatable{
+struct Position : Equatable{
     let x : Int
     let y : Int
     
@@ -16,11 +16,6 @@ class Position : Equatable{
         self.x = x
         self.y = y
     }
-    
-    func getX() -> Int { return self.x }
-    func getY() -> Int { return self.y }
-    func hashCode() -> Int { return self.x * 31 ^ self.y }
-    func clone() -> Position { return Position(x: self.x,y: self.y) }
 }
 
 func == (left: Position, right: Position) -> Bool {
