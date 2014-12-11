@@ -13,7 +13,6 @@ enum MoveType{
     case Paika
     case Approach
     case Withdrawal
-    case Sacrifice
 }
 
 struct Move {

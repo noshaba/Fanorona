@@ -15,12 +15,11 @@ extension Array {
     }
 }
 
-class Stone {
+class Stone : Equatable {
     
     var x: Int
     var y: Int
     var color: UIColor
-    var isSacrifice: Bool
     var invertIntersection: Bool
     var isStrongIntersection: Bool
     var prevPositions = [Position]()
@@ -30,10 +29,8 @@ class Stone {
         self.x = x
         self.y = y
         self.color = stoneColor
-        self.isSacrifice = false
         self.invertIntersection = false
         self.isStrongIntersection = false
-        self.isSacrifice = false
     }
     
     func setInvertIntersectionType(size_x: Int, size_y: Int) {
@@ -61,6 +58,8 @@ class Stone {
         prevPositions.removeAll()
         prevDirection = nil
     }
+}
 
-    
+func == (left: Stone, right: Stone) -> Bool {
+    return left.x == right.x && left.y == right.y && left.color == right.color
 }

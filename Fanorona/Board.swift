@@ -14,10 +14,17 @@ class Board {
     var MIN_Y: Int!
     var MAX_Y: Int!
     var MAX_MOVE: Int!
-    var move: Int!
-    var turn: UIColor!
+    var move: Int
+    var turn: UIColor
     var state = [Stone]()
     var multiMovePos: Position?
+    
+    enum GoalState{
+        case Draw
+        case WhiteWon
+        case BlackWon
+        case Continue
+    }
     
     init(){
         move = 0
@@ -241,30 +248,20 @@ class Board {
         }
         let diffX = nextX - currentX
         let diffY = nextY - currentY
+        let diffX2 = diffX * diffX
+        let diffY2 = diffY * diffY
         var withdrawal = false
         var approach = false
         if !posIsEmpty(nextX, y: nextY) || !posIsValid(nextX, y: nextY){
             return .Err
         }
-        if stone.isStrongIntersection {
-            if (currentX != nextX || currentY - 1 != nextY) &&
-                (currentX - 1 != nextX || currentY + 1 != nextY) &&
-                (currentX - 1 != nextX || currentY - 1 != nextY){
-                if (currentX + 1 != nextX || currentY + 1 != nextY) &&
-                    (currentX + 1 != nextX || currentY - 1 != nextY) &&
-                    (currentX != nextX || currentY + 1 != nextY){
-                    if (currentX != nextX || currentY - 1 != nextY) &&
-                        (currentX - 1 != nextX || currentY != nextY) &&
-                        (currentX + 1 != nextX || currentY != nextY){
-                            return .Err
-                    }
-                }
-            }
-        } else if ((currentX != nextX || currentY + 1 != nextY) &&
-            (currentX != nextX || currentY - 1 != nextY) &&
-            (currentX - 1 != nextX || currentY != nextY) &&
-            (currentX + 1 != nextX || currentY != nextY)) {
+        if diffX2 > 1 || diffY2 > 1 {
             return .Err
+        }
+        if !stone.isStrongIntersection {
+            if diffX2 == 1 && diffY2 == 1 {
+                return .Err
+            }
         }
         if isPaika(turn){
             return .Paika
@@ -277,7 +274,7 @@ class Board {
         if approachStn != nil && stone.color != approachStn?.color {
             approach = true
         }
-        if !approach && !withdrawal{
+        if !approach && !withdrawal || approach && withdrawal {
             return .Err
         }
         if stone.isSameDirection(Position(x: diffX, y: diffY)){
@@ -286,19 +283,114 @@ class Board {
         if stone.posIsVisited(Position(x: nextX, y: nextY)){
             return .Err
         }
-        if approach && withdrawal {
-            if withdrawalStn!.isSacrifice {
-                return .Approach
-            }
-            if approachStn!.isSacrifice {
-                return .Withdrawal
-            }
-            return .Sacrifice
-        } else {
-            if approach {
-                return .Approach
-            }
-            return .Withdrawal
+        if approach {
+            return .Approach
         }
+        return .Withdrawal
+    }
+    
+    func updateBoard(nextMove: Move){
+        let stone = nextMove.stone
+        let nextX = nextMove.nextPos.x
+        let nextY = nextMove.nextPos.y
+        let moveType = nextMove.moveType
+        updateBoard(moveType, nextX: nextX, nextY: nextY, stone: stone)
+    }
+    
+    func updateBoard(moveType: MoveType, nextX: Int, nextY: Int, stone: Stone){
+        let currentX = stone.x
+        let currentY = stone.y
+        let diffX = nextX - currentX
+        let diffY = nextY - currentY
+        if moveType == .Approach || moveType == .Withdrawal {
+            if moveType == .Approach {
+                var removePosX = currentX + 2 * diffX
+                var removePosY = currentY + 2 * diffY
+                while true {
+                    let stoneToBeRemoved = getStone(removePosX, y: removePosY)
+                    if stoneToBeRemoved == nil || stoneToBeRemoved?.color == turn {
+                        break
+                    }
+                    state.removeAtIndex(find(state,stoneToBeRemoved!)!)
+                    if diffX < 0 {
+                        --removePosX
+                    }
+                    if diffX > 0 {
+                        ++removePosX
+                    }
+                    if diffY < 0 {
+                        --removePosY
+                    }
+                    if diffY > 0 {
+                        ++removePosY
+                    }
+                }
+            }
+            if moveType == .Withdrawal {
+                var removePosX = currentX - diffX
+                var removePosY = currentY - diffY
+                while true {
+                    let stoneToBeRemoved = getStone(removePosX, y: removePosY)
+                    if stoneToBeRemoved == nil || stoneToBeRemoved?.color == turn {
+                        break
+                    }
+                    state.removeAtIndex(find(state,stoneToBeRemoved!)!)
+                    if diffX < 0 {
+                        ++removePosX
+                    }
+                    if diffX > 0 {
+                        --removePosX
+                    }
+                    if diffY < 0 {
+                        ++removePosY
+                    }
+                    if diffY > 0 {
+                        --removePosY
+                    }
+                }
+            }
+            stone.prevDirection = Position(x: diffX, y: diffY)
+            stone.prevPositions.append(Position(x: currentX, y: currentY))
+            multiMovePos = Position(x: nextX, y: nextY)
+            if !ableToCapture(stone){
+                stone.clearHistory()
+                alternateTurn(turn)
+                multiMovePos = nil
+            }
+        } else {
+            alternateTurn(turn)
+            multiMovePos = nil
+        }
+        state.removeAtIndex(find(state,stone)!)
+        stone.x = nextX
+        stone.y = nextY
+        state.append(stone)
+        ++move
+        checkGoalState()
+    }
+    
+    func checkGoalState() -> GoalState {
+        var whiteCount = 0
+        var blackCount = 0
+        if (move >= MAX_MOVE) {
+            println("Draw!")
+            return .Draw
+        }
+        for stone in state {
+            if stone.color == UIColor.whiteColor() {
+                ++whiteCount
+            } else {
+                ++blackCount
+            }
+        }
+        if whiteCount == 0 {
+            println("Black Won!")
+            return .BlackWon
+        }
+        if blackCount == 0 {
+            println("White Won!")
+            return .WhiteWon
+        }
+        return .Continue
     }
 }
