@@ -35,6 +35,15 @@ class Stone : Equatable {
         self.isStrongIntersection = false
     }
     
+    func clone() -> Stone{
+        let stone = Stone(x: x,y: y,stoneColor: color)
+        for p in prevPositions {
+            stone.prevPositions.append(p.clone())
+        }
+        stone.prevDirection = prevDirection?.clone()
+        return stone
+    }
+    
     func initButton(){
         button.frame = CGRectMake(CGFloat(x)*buttonSize, CGFloat(y)*buttonSize, buttonSize, buttonSize)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width

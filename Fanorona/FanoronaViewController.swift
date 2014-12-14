@@ -13,8 +13,10 @@ class FanoronaViewController: UIViewController{
     var boardWidth: Int!
     var boardHeight: Int!
     var time: Int!
-    var aiVersion: Int?
+    var aiVersion: AI.UtilType?
     var aiDepth: Int?
+    var ai: AI?
+    var aiMove: Move?
     var goalState = Board.GoalState.Continue
     var fromX: Int!
     var fromY: Int!
@@ -38,7 +40,6 @@ class FanoronaViewController: UIViewController{
     var isPaikaGlobal: Bool!
     var isSacrificeGlobal: Bool!
     var timer: NSTimer!
-    var possibleMoveButtons = [UIButton]()
     var selectedStone: Stone?
     
     
@@ -56,7 +57,7 @@ class FanoronaViewController: UIViewController{
         boardWidth = 9
         boardHeight = 5
         if isOpponentAI {
-            aiVersion = 0
+            aiVersion = .Random
             aiDepth = 2
         }
         board.reset(boardWidth, y: boardHeight)
@@ -86,14 +87,6 @@ class FanoronaViewController: UIViewController{
         view.addSubview(boardView)
     }
     
-    func vsModeLocalPlayer(sender: UIButton){
-        if !stoneIsSelected {
-            attempToSelectStone(sender)
-        } else {
-            attemptToMoveStone(sender)
-        }
-    }
-    
     func initFieldButtons(){
         var fieldButton: UIButton
         let sqrtDiff = (boardWidth - boardHeight) * (boardWidth - boardHeight)
@@ -118,22 +111,29 @@ class FanoronaViewController: UIViewController{
                 boardView.addSubview(fieldButton)
             }
         }
-//        let possibleMoves = board.getPossibleMoves(stone)
-//        var moveButton: UIButton
-//        for move in possibleMoves {
-//            moveButton = UIButton.buttonWithType(.Custom) as UIButton
-//            moveButton.frame = CGRectMake(CGFloat(move.x)*stoneSize, CGFloat(move.y)*stoneSize, stoneSize, stoneSize)
-//            moveButton.addTarget(self, action: Selector("vsModeLocalPlayer:"), forControlEvents: .TouchUpInside)
-//            boardView.addSubview(moveButton)
-//            possibleMoveButtons.append(moveButton)
-//        }
     }
     
-    func hidePossibleMoves(){
-        for button in possibleMoveButtons {
-            button.removeFromSuperview()
+    func vsModeLocalPlayer(sender: UIButton){
+        if !stoneIsSelected {
+            attempToSelectStone(sender)
+        } else {
+            attemptToMoveStone(sender)
         }
-        possibleMoveButtons.removeAll()
+        /** TODO: Check goal state!!! **/
+    }
+    
+    func vsModeLocalBlackAI(sender: UIButton){
+        if board.turn == UIColor.whiteColor() {
+            if !stoneIsSelected {
+                attempToSelectStone(sender)
+            } else {
+                attemptToMoveStone(sender)
+            }
+            /** TODO: Check goal state!!! **/
+            if board.turn == UIColor.blackColor(){
+                
+            }
+        }
     }
     
     func attempToSelectStone(sender: UIButton){
@@ -147,7 +147,6 @@ class FanoronaViewController: UIViewController{
                 return
             }
             stoneIsSelected = true
-//          showPossibleMoves(selectedStone!)
             println("Game is now in selected state.")
         } else {
             println("Empty position.")
@@ -172,7 +171,6 @@ class FanoronaViewController: UIViewController{
             if destinationStone!.x == fromX && destinationStone!.y == fromY && !forceUserToMove {
                 stoneIsSelected = false
                 selectedStone = nil
-//                hidePossibleMoves()
                 println("You deselected your stone")
             }
             return
@@ -225,8 +223,19 @@ class FanoronaViewController: UIViewController{
             forceUserToMove = false
             stoneIsSelected = false
             selectedStone = nil
-//            hidePossibleMoves()
             println("User's turn complete.")
+        }
+    }
+    
+    func attemptAIMove(){
+        let turn = board.turn
+        networkToPositions.removeAll()
+        networkFromPositions.removeAll()
+        networkMoveTypes.removeAll()
+        while board.turn == turn {
+            if !isGameOver {
+//                ai = AI(aiVersion!, )
+            }
         }
     }
 }

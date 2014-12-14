@@ -16,6 +16,11 @@ struct Position : Equatable{
         self.x = x
         self.y = y
     }
+    
+    func clone() -> Position {
+        return Position(x: x,y: y)
+    }
+    
 }
 
 func == (left: Position, right: Position) -> Bool {

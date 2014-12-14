@@ -100,6 +100,20 @@ class Board {
         }
     }
     
+    func clone() -> Board{
+        let board = Board()
+        board.MAX_X = MAX_X
+        board.MAX_Y = MAX_Y
+        board.MAX_MOVE = MAX_MOVE
+        board.move = move
+        for stn in state {
+            board.state.append(stn.clone())
+        }
+        board.multiMovePos = multiMovePos?.clone()
+        board.turn = turn
+        return board
+    }
+    
     func getStone(x: Int, y: Int) -> Stone? {
         for stone in state {
             if stone.x == x && stone.y == y {
@@ -357,7 +371,6 @@ class Board {
             stone.button.frame.origin.x = CGFloat(nextX)*stone.buttonSize
             stone.button.frame.origin.y = CGFloat(nextY)*stone.buttonSize
             }, completion: { finished in
-                println("Stone moved!")
         })
         ++move
         checkGoalState()

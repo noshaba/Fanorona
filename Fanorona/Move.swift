@@ -26,13 +26,17 @@ enum MoveType: Printable{
 }
 
 struct Move {
-    let stone: Stone
-    let nextPos: Position
-    let moveType: MoveType
+    let stone: Stone!
+    let nextPos: Position!
+    let moveType: MoveType!
     
     init(stone: Stone, nextPos: Position, moveType: MoveType){
         self.stone = stone
         self.nextPos = nextPos
         self.moveType = moveType
+    }
+    
+    func clone() -> Move {
+        return Move(stone: stone.clone(),nextPos: nextPos.clone(),moveType: moveType)
     }
 }
