@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05C834671A3CFD62003A8E2B /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C834661A3CFD62003A8E2B /* CollectionViewCell.swift */; };
 		05DD10311A349E6A001E96F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DD10301A349E6A001E96F6 /* AppDelegate.swift */; };
 		05DD10331A349E6A001E96F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DD10321A349E6A001E96F6 /* ViewController.swift */; };
 		05DD10361A349E6A001E96F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05DD10341A349E6A001E96F6 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05C834661A3CFD62003A8E2B /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		05DD102B1A349E6A001E96F6 /* Fanorona.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fanorona.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05DD102F1A349E6A001E96F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05DD10301A349E6A001E96F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,8 +97,9 @@
 				05EA7D161A37DCFA00C9EEB4 /* Position.swift */,
 				05EA7D1A1A38668900C9EEB4 /* Move.swift */,
 				05EA7D181A380F7200C9EEB4 /* Board.swift */,
-				05EA7D0E1A37C83C00C9EEB4 /* FanoronaViewController.swift */,
 				05EA7D141A37CA9800C9EEB4 /* Stone.swift */,
+				05EA7D0E1A37C83C00C9EEB4 /* FanoronaViewController.swift */,
+				05C834661A3CFD62003A8E2B /* CollectionViewCell.swift */,
 				05DD10341A349E6A001E96F6 /* Main.storyboard */,
 				05DD10371A349E6A001E96F6 /* Images.xcassets */,
 				05DD10391A349E6A001E96F6 /* LaunchScreen.xib */,
@@ -232,6 +235,7 @@
 			files = (
 				05EA7D1B1A38668A00C9EEB4 /* Move.swift in Sources */,
 				05EA7D0F1A37C83C00C9EEB4 /* FanoronaViewController.swift in Sources */,
+				05C834671A3CFD62003A8E2B /* CollectionViewCell.swift in Sources */,
 				05DD10331A349E6A001E96F6 /* ViewController.swift in Sources */,
 				05EA7D191A380F7200C9EEB4 /* Board.swift in Sources */,
 				05EA7D151A37CA9800C9EEB4 /* Stone.swift in Sources */,

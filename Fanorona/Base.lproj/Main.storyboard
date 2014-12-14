@@ -218,11 +218,11 @@
                                 <exclude reference="PZg-Mq-Izj"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="1gf-j2-dZL"/>
+                                <exclude reference="g4A-T5-gv6"/>
                                 <exclude reference="ZuZ-LB-Rla"/>
                                 <exclude reference="aDO-1a-Cs3"/>
                                 <exclude reference="b4b-Cu-m71"/>
-                                <exclude reference="1gf-j2-dZL"/>
-                                <exclude reference="g4A-T5-gv6"/>
                                 <exclude reference="PyN-DE-tUJ"/>
                             </mask>
                         </variation>
@@ -242,11 +242,11 @@
                                 <include reference="PZg-Mq-Izj"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="1gf-j2-dZL"/>
+                                <include reference="g4A-T5-gv6"/>
                                 <include reference="ZuZ-LB-Rla"/>
                                 <include reference="aDO-1a-Cs3"/>
                                 <include reference="b4b-Cu-m71"/>
-                                <include reference="1gf-j2-dZL"/>
-                                <include reference="g4A-T5-gv6"/>
                                 <include reference="PyN-DE-tUJ"/>
                             </mask>
                         </variation>
@@ -259,7 +259,6 @@
         <!--Fanorona View Controller-->
         <scene sceneID="kxJ-eL-6N2">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hpQ-Sh-zNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="mgu-DY-eqP" customClass="FanoronaViewController" customModule="Fanorona" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="czk-eb-fhp"/>
@@ -311,13 +310,17 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="navigationBar" destination="0bt-Kq-6Dl" id="E5E-0g-iH8"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hpQ-Sh-zNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="563" y="441"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="o6k-eM-j8U"/>
+        <segue reference="s71-Zv-5Yi"/>
         <segue reference="0hk-dq-A1u"/>
     </inferredMetricsTieBreakers>
 </document>
