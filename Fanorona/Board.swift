@@ -266,10 +266,10 @@ class Board {
         let nextX = nextMove.nextPos.x
         let nextY = nextMove.nextPos.y
         let moveType = nextMove.moveType
-        updateBoard(moveType, nextX: nextX, nextY: nextY, stone: stone)
+        updateBoard(moveType, stone: stone, nextX: nextX, nextY: nextY)
     }
     
-    func updateBoard(moveType: MoveType, nextX: Int, nextY: Int, stone: Stone){
+    func updateBoard(moveType: MoveType, stone: Stone, nextX: Int, nextY: Int){
         let currentX = stone.x
         let currentY = stone.y
         let diffX = nextX - currentX
@@ -283,7 +283,7 @@ class Board {
                     if stoneToBeRemoved == nil || stoneToBeRemoved?.color == turn {
                         break
                     }
-                    state.removeAtIndex(find(state,stoneToBeRemoved!)!)
+                    removeStone(stoneToBeRemoved!)
                     if diffX < 0 {
                         --removePosX
                     }
@@ -306,7 +306,7 @@ class Board {
                     if stoneToBeRemoved == nil || stoneToBeRemoved?.color == turn {
                         break
                     }
-                    state.removeAtIndex(find(state,stoneToBeRemoved!)!)
+                    removeStone(stoneToBeRemoved!)
                     if diffX < 0 {
                         ++removePosX
                     }
@@ -337,8 +337,19 @@ class Board {
         stone.x = nextX
         stone.y = nextY
         state.append(stone)
+        UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
+            stone.button.frame.origin.x = CGFloat(nextX)*stone.buttonSize
+            stone.button.frame.origin.y = CGFloat(nextY)*stone.buttonSize
+            }, completion: { finished in
+                println("Stone moved!")
+        })
         ++move
         checkGoalState()
+    }
+    
+    func removeStone(stone: Stone){
+        state.removeAtIndex(find(state,stone)!)
+        stone.button.removeFromSuperview()
     }
     
     func checkGoalState() -> GoalState {

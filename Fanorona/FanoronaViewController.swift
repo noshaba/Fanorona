@@ -22,7 +22,10 @@ class FanoronaViewController: UIViewController{
     var captureY: Int!
     var toX: Int!
     var toY: Int!
-    var moveType: Int!
+    var moveType = MoveType.Err
+    var networkToPositions = [Position]()
+    var networkFromPositions = [Position]()
+    var networkMoveTypes = [MoveType]()
     var approachRemoveX: Int!
     var approachRemoveY: Int!
     var withdrwalRemoveX: Int!
@@ -133,12 +136,53 @@ class FanoronaViewController: UIViewController{
         if !mustDecideCaptureDirection {
             toX = Int(sender.frame.origin.x) / Int(stoneSize)
             toY = Int(sender.frame.origin.y) / Int(stoneSize)
+            moveType = board.moveStone(selectedStone!, nextX: toX, nextY: toY)
             println("Button \(toX), \(toY) clicked.")
         } else {
+            println("hello1")
             captureX = Int(sender.frame.origin.x) / Int(stoneSize)
             captureY = Int(sender.frame.origin.y) / Int(stoneSize)
             println("Button \(captureX), \(captureY) clicked.")
         }
-        let destinationStone = board.getStone(toX, y: toY)
+        let initialTurn = board.turn
+        var stoneMoved = false
+        println("Attempting to move stone from \(fromX), \(fromY) to \(toX), \(toY)")
+        if moveType != .Err {
+            if mustDecideCaptureDirection{
+                println("hello2")
+                if (captureX == approachRemoveX && captureY == approachRemoveY) {
+                    moveType = .Approach
+                    mustDecideCaptureDirection = false
+                } else if (captureX == withdrwalRemoveX && captureY == withdrwalRemoveY) {
+                    moveType = .Withdrawal
+                    mustDecideCaptureDirection = false
+                }
+            }
+            if !mustDecideCaptureDirection{
+                board.updateBoard(moveType, stone: selectedStone!, nextX: toX, nextY: toY)
+                stoneMoved = true
+            }
+        }
+        if initialTurn == board.turn && !mustDecideCaptureDirection {
+            if stoneMoved {
+                networkFromPositions.append(Position(x: fromX, y: fromY))
+                networkToPositions.append(Position(x: toX, y: toY))
+                networkMoveTypes.append(moveType)
+                fromX = toX
+                fromY = toY
+                forceUserToMove = true
+            } else if !forceUserToMove {
+                println("That is not a legal move.")
+            }
+        } else if(!mustDecideCaptureDirection){
+            networkFromPositions.append(Position(x: fromX, y: fromY))
+            networkToPositions.append(Position(x: toX, y: toY))
+            networkMoveTypes.append(moveType)
+            forceUserToMove = false
+            stoneIsSelected = false
+            selectedStone = nil
+            hidePossibleMoves()
+            println("User's turn complete.")
+        }
     }
 }
