@@ -36,7 +36,7 @@ class FanoronaViewController: UIViewController{
     var forceUserToMove = false
     var mustDecideCaptureDirection = false
     var isGameOver = false
-    var isOpponentAI = false
+    var opponentIsAI = true
     var isPaikaGlobal: Bool!
     var isSacrificeGlobal: Bool!
     var timer: NSTimer!
@@ -56,7 +56,7 @@ class FanoronaViewController: UIViewController{
     required init(coder aDecoder: NSCoder) {
         boardWidth = 9
         boardHeight = 5
-        if isOpponentAI {
+        if opponentIsAI {
             aiVersion = .Random
             aiDepth = 2
         }
@@ -81,7 +81,7 @@ class FanoronaViewController: UIViewController{
         for stone in board.state {
             stone.buttonSize = stoneSize
             stone.initButton()
-            stone.button.addTarget(self, action: Selector("vsModeLocalPlayer:"), forControlEvents: .TouchUpInside)
+            stone.button.addTarget(self, action: Selector("vsOpponent:"), forControlEvents: .TouchUpInside)
             boardView.addSubview(stone.button)
         }
         view.addSubview(boardView)
@@ -107,13 +107,21 @@ class FanoronaViewController: UIViewController{
                     fieldButton.setImage(UIImage(named: "weakIntersect"), forState: .Normal)
                 }
                 fieldButton.adjustsImageWhenHighlighted = false
-                fieldButton.addTarget(self, action: Selector("vsModeLocalPlayer:"), forControlEvents: .TouchUpInside)
+                fieldButton.addTarget(self, action: Selector("vsOpponent:"), forControlEvents: .TouchUpInside)
                 boardView.addSubview(fieldButton)
             }
         }
     }
     
-    func vsModeLocalPlayer(sender: UIButton){
+    func vsOpponent(sender: UIButton){
+        if !opponentIsAI {
+            vsPlayer(sender)
+        } else {
+            vsBlackAI(sender)
+        }
+    }
+    
+    func vsPlayer(sender: UIButton){
         if !stoneIsSelected {
             attempToSelectStone(sender)
         } else {
@@ -122,7 +130,7 @@ class FanoronaViewController: UIViewController{
         /** TODO: Check goal state!!! **/
     }
     
-    func vsModeLocalBlackAI(sender: UIButton){
+    func vsBlackAI(sender: UIButton){
         if board.turn == UIColor.whiteColor() {
             if !stoneIsSelected {
                 attempToSelectStone(sender)
@@ -130,9 +138,13 @@ class FanoronaViewController: UIViewController{
                 attemptToMoveStone(sender)
             }
             /** TODO: Check goal state!!! **/
-            if board.turn == UIColor.blackColor(){
-                
-            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
+////            NSThread.sleepForTimeInterval(0.8)
+//            sleep(1)
+                if self.board.turn == UIColor.blackColor(){
+                    self.attemptAIMove()
+                }
+            })
         }
     }
     
@@ -232,10 +244,37 @@ class FanoronaViewController: UIViewController{
         networkToPositions.removeAll()
         networkFromPositions.removeAll()
         networkMoveTypes.removeAll()
+        println("hello")
         while board.turn == turn {
-            if !isGameOver {
-//                ai = AI(aiVersion!, )
+            if !self.isGameOver {
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
+//                sleep(1)
+//                var aiQueue: dispatch_queue_t? = nil
+//                var onceToken: dispatch_once_t = 0
+//                dispatch_once(&onceToken) {
+//                    aiQueue = dispatch_queue_create(nil, DISPATCH_QUEUE_SERIAL);
+//                }
+//                dispatch_sync(aiQueue!, {
+//                    dispatch_suspend(aiQueue)
+                NSThread.sleepForTimeInterval(1.0)
+                    self.ai = AI(utilType: self.aiVersion!, gameBoard: self.board)
+                    self.aiMove = self.ai!.getBestMove()
+                    self.networkFromPositions.append(Position(x: self.aiMove!.stone.x, y:self.aiMove!.stone.y))
+                    self.networkToPositions.append(self.aiMove!.nextPos)
+                    self.networkMoveTypes.append(self.aiMove!.moveType)
+                    self.board.updateBoard(self.aiMove!)
+                    self.fromX = self.aiMove!.nextPos.x
+                    self.fromY = self.aiMove!.nextPos.y
+                    self.stoneIsSelected = true
+                    println("AI move done.")
+                    //** TODO: Check goal state!!! **//
+                    //                })
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
+//                        dispatch_resume(aiQueue)
+//                    })
+//                })
             }
+            stoneIsSelected = false
         }
     }
 }

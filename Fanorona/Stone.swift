@@ -37,6 +37,10 @@ class Stone : Equatable {
     
     func clone() -> Stone{
         let stone = Stone(x: x,y: y,stoneColor: color)
+        stone.buttonSize = buttonSize
+        stone.setInvertIntersectionType(x, size_y: y)
+        stone.setIntersectionType()
+        stone.initButton()
         for p in prevPositions {
             stone.prevPositions.append(p.clone())
         }

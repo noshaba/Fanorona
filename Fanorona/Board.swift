@@ -102,6 +102,8 @@ class Board {
     
     func clone() -> Board{
         let board = Board()
+        board.MIN_X = MIN_X
+        board.MIN_Y = MIN_Y
         board.MAX_X = MAX_X
         board.MAX_Y = MAX_Y
         board.MAX_MOVE = MAX_MOVE
@@ -154,7 +156,7 @@ class Board {
     func ableToCapture(stone: Stone) -> Bool {
         var possibleMoves = getPossibleMoves(stone)
         for nextPos in possibleMoves {
-            if isMoveAbleToCapture(stone,nextX: nextPos.x,nextY: nextPos.y){
+            if moveIsAbleToCapture(stone,nextX: nextPos.x,nextY: nextPos.y) != .Paika {
                 return true
             }
         }
@@ -182,7 +184,7 @@ class Board {
         return possibleMoves
     }
     
-    func isMoveAbleToCapture(stone: Stone, nextX: Int, nextY: Int) -> Bool {
+    func moveIsAbleToCapture(stone: Stone, nextX: Int, nextY: Int) -> MoveType {
         let currentX = stone.x
         let currentY = stone.y
         let diffX = nextX - currentX
@@ -197,10 +199,16 @@ class Board {
         if approachStn != nil && stone.color != approachStn?.color {
             approach = true;
         }
-        if approach || withdrawal {
-            return true
+        if approach && withdrawal {
+            return .CaptureDecision
         }
-        return false
+        if approach {
+            return .Approach
+        }
+        if withdrawal {
+            return .Withdrawal
+        }
+        return .Paika
     }
     
     func getAllPossibleMoves() -> [Move] {
@@ -216,18 +224,22 @@ class Board {
             }
         }
         for stone in stones {
+            println("s: \(stone.x),\(stone.y)")
             let moveFromOneStone = getPossibleMoves(stone)
             for position in moveFromOneStone {
+                println("m: \(position.x),\(position.y)")
                 if(isPaika(turn)){
                     moves.append(Move(stone: stone,nextPos: position,moveType: moveStone(stone,nextX: position.x,nextY: position.y)))
                 } else {
-                    if !isMoveAbleToCapture(stone, nextX: position.x, nextY: position.y){
+                    if moveIsAbleToCapture(stone, nextX: position.x, nextY: position.y) == .Paika {
                         continue
                     }
                     moves.append(Move(stone: stone,nextPos: position,moveType: moveStone(stone,nextX: position.x,nextY: position.y)))
                 }
             }
         }
+        println("")
+        println("")
         return moves
     }
     
@@ -367,11 +379,12 @@ class Board {
             alternateTurn(turn)
             multiMovePos = nil
         }
-        UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
+//        UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
             stone.button.frame.origin.x = CGFloat(nextX)*stone.buttonSize
             stone.button.frame.origin.y = CGFloat(nextY)*stone.buttonSize
-            }, completion: { finished in
-        })
+//            }, completion: { finished in
+//                println("stone moved")
+//        })
         ++move
         checkGoalState()
     }
