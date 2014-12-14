@@ -8,11 +8,21 @@
 
 import UIKit
 
-enum MoveType{
+enum MoveType: Printable{
     case Err
     case Paika
     case Approach
     case Withdrawal
+    case CaptureDecision
+    var description : String {
+        switch self {
+        case .Err: return "Err"
+        case .Paika: return "Paika"
+        case .Approach: return "Approach"
+        case .Withdrawal: return "Withdrawal"
+        case .CaptureDecision: return "CaptureDecision"
+        }
+    }
 }
 
 struct Move {

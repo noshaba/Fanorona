@@ -112,9 +112,11 @@ class FanoronaViewController: UIViewController{
     }
     
     func attempToSelectStone(sender: UIButton){
+        let buffX = Int(sender.frame.origin.x) / Int(stoneSize)
+        let buffY = Int(sender.frame.origin.y) / Int(stoneSize)
         if !stoneIsSelected {
-            fromX = Int(sender.frame.origin.x) / Int(stoneSize)
-            fromY = Int(sender.frame.origin.y) / Int(stoneSize)
+            fromX = buffX
+            fromY = buffY
             println("Button \(fromX), \(fromY) clicked.")
             selectedStone = board.getStone(fromX, y: fromY)!
             if selectedStone!.color != board.turn {
@@ -125,10 +127,14 @@ class FanoronaViewController: UIViewController{
             showPossibleMoves(selectedStone!)
             println("Game is now in selected state.")
         } else {
-            stoneIsSelected = false
-            selectedStone = nil
-            hidePossibleMoves()
-            println("You deselected your stone")
+            if buffX == fromX && buffY == fromY {
+                stoneIsSelected = false
+                selectedStone = nil
+                hidePossibleMoves()
+                println("You deselected your stone")
+            } else {
+                
+            }
         }
     }
     
@@ -147,8 +153,18 @@ class FanoronaViewController: UIViewController{
         let initialTurn = board.turn
         var stoneMoved = false
         println("Attempting to move stone from \(fromX), \(fromY) to \(toX), \(toY)")
+        println("\(moveType)")
         if moveType != .Err {
-            if mustDecideCaptureDirection{
+            if moveType == .CaptureDecision{
+                let diffX = toX - fromX
+                let diffY = toY - fromY
+                approachRemoveX = fromX + 2 * diffX
+                approachRemoveY = fromY + 2 * diffY
+                withdrwalRemoveX = fromX - diffX
+                withdrwalRemoveY = fromY - diffY
+                println("Either (\(approachRemoveX), \(approachRemoveY)) by approach or (\(withdrwalRemoveX), \(withdrwalRemoveY)) by withdrwal will be removed.")
+                mustDecideCaptureDirection = true
+            } else if mustDecideCaptureDirection {
                 println("hello2")
                 if (captureX == approachRemoveX && captureY == approachRemoveY) {
                     moveType = .Approach

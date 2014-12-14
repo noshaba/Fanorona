@@ -19,11 +19,20 @@ class Board {
     var state = [Stone]()
     var multiMovePos: Position?
     
-    enum GoalState{
+    enum GoalState: Printable{
         case Draw
         case WhiteWon
         case BlackWon
         case Continue
+        
+        var description: String{
+            switch(self){
+            case .Draw: return "Draw"
+            case .WhiteWon: return "White won"
+            case .BlackWon: return "Black won"
+            case .Continue: return "Game continues"
+            }
+        }
     }
     
     init(){
@@ -246,19 +255,22 @@ class Board {
         if approachStn != nil && stone.color != approachStn?.color {
             approach = true
         }
-        if !approach && !withdrawal || approach && withdrawal {
-            return .Err
-        }
         if stone.isSameDirection(Position(x: diffX, y: diffY)){
             return .Err
         }
         if stone.posIsVisited(Position(x: nextX, y: nextY)){
             return .Err
         }
+        if approach && withdrawal{
+            return .CaptureDecision
+        }
         if approach {
             return .Approach
         }
-        return .Withdrawal
+        if withdrawal{
+            return .Withdrawal
+        }
+        return .Err
     }
     
     func updateBoard(nextMove: Move){
