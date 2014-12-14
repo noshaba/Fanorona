@@ -142,46 +142,18 @@ class Board {
         let currentX = stone.x
         let currentY = stone.y
         var possibleMoves = [Position]()
-        if posIsValid(currentX, y: currentY + 1) && posIsEmpty(currentX, y: currentY + 1) &&
-            !stone.posIsVisited(Position(x: currentX, y: currentY + 1)) &&
-            !stone.isSameDirection(Position(x: 0, y: 1)) {
-            possibleMoves.append(Position(x: currentX, y: currentY + 1))
-        }
-        if posIsValid(currentX, y: currentY - 1) && posIsEmpty(currentX, y: currentY - 1) &&
-            !stone.posIsVisited(Position(x: currentX, y: currentY - 1)) &&
-            !stone.isSameDirection(Position(x: 0, y: -1)) {
-                possibleMoves.append(Position(x: currentX, y: currentY + 1))
-        }
-        if posIsValid(currentX - 1, y: currentY) && posIsEmpty(currentX - 1, y: currentY) &&
-            !stone.posIsVisited(Position(x: currentX - 1, y: currentY)) &&
-            !stone.isSameDirection(Position(x: -1, y: 0)) {
-                possibleMoves.append(Position(x: currentX - 1, y: currentY))
-        }
-        if posIsValid(currentX + 1, y: currentY) && posIsEmpty(currentX + 1, y: currentY) &&
-            !stone.posIsVisited(Position(x: currentX + 1, y: currentY)) &&
-            !stone.isSameDirection(Position(x: 1, y: 0)) {
-                possibleMoves.append(Position(x: currentX, y: currentY + 1))
-        }
-        if stone.isStrongIntersection {
-            if posIsValid(currentX + 1, y: currentY + 1) && posIsEmpty(currentX + 1, y: currentY + 1) &&
-                !stone.posIsVisited(Position(x: currentX + 1, y: currentY + 1)) &&
-                !stone.isSameDirection(Position(x: 1, y: 1)) {
-                    possibleMoves.append(Position(x: currentX + 1, y: currentY + 1))
-            }
-            if posIsValid(currentX + 1, y: currentY - 1) && posIsEmpty(currentX + 1, y: currentY - 1) &&
-                !stone.posIsVisited(Position(x: currentX + 1, y: currentY - 1)) &&
-                !stone.isSameDirection(Position(x: 1, y: -1)) {
-                    possibleMoves.append(Position(x: currentX + 1, y: currentY - 1))
-            }
-            if posIsValid(currentX - 1, y: currentY + 1) && posIsEmpty(currentX - 1, y: currentY + 1) &&
-                !stone.posIsVisited(Position(x: currentX - 1, y: currentY + 1)) &&
-                !stone.isSameDirection(Position(x: -1, y: 1)) {
-                    possibleMoves.append(Position(x: currentX - 1, y: currentY + 1))
-            }
-            if posIsValid(currentX - 1, y: currentY - 1) && posIsEmpty(currentX - 1, y: currentY - 1) &&
-                !stone.posIsVisited(Position(x: currentX - 1, y: currentY - 1)) &&
-                !stone.isSameDirection(Position(x: -1, y: -1)) {
-                    possibleMoves.append(Position(x: currentX - 1, y: currentY - 1))
+        for var i = -1; i <= 1; ++i {
+            for var j = -1; j <= 1; ++j {
+                if i == 0 && j == 0{
+                    continue
+                }
+                if !stone.isStrongIntersection && i*i == j*j {
+                    continue
+                }
+                if posIsValid(currentX + i, y: currentY + j) && posIsEmpty(currentX + i, y: currentY + j) && !stone.posIsVisited(Position(x: currentX + i, y: currentY + j))
+                    && !stone.isSameDirection(Position(x: i, y: j)) {
+                        possibleMoves.append(Position(x: currentX + i, y: currentY + j))
+                }
             }
         }
         return possibleMoves

@@ -24,6 +24,8 @@ class Stone : Equatable {
     var isStrongIntersection: Bool
     var prevPositions = [Position]()
     var prevDirection: Position?
+    var button = UIButton.buttonWithType(.Custom) as UIButton
+    var buttonSize: CGFloat!
     
     init(x: Int, y: Int, stoneColor: UIColor){
         self.x = x
@@ -31,6 +33,13 @@ class Stone : Equatable {
         self.color = stoneColor
         self.invertIntersection = false
         self.isStrongIntersection = false
+    }
+    
+    func initButton(){
+        button.frame = CGRectMake(CGFloat(x)*buttonSize, CGFloat(y)*buttonSize, buttonSize, buttonSize)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.backgroundColor = color
+        button.contentMode = .Redraw
     }
     
     func setInvertIntersectionType(size_x: Int, size_y: Int) {
@@ -58,6 +67,7 @@ class Stone : Equatable {
         prevPositions.removeAll()
         prevDirection = nil
     }
+    
 }
 
 func == (left: Stone, right: Stone) -> Bool {
