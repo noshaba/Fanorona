@@ -10,12 +10,12 @@ import UIKit
 
 class FanoronaViewController: UIViewController{
     let board = Board()
-    var boardWidth: Int
-    var boardHeight: Int
+    var boardWidth: Int!
+    var boardHeight: Int!
     var time: Int!
     var aiVersion: Int?
     var aiDepth: Int?
-    var goalState: Board.GoalState
+    var goalState: Board.GoalState!
     var fromX: Int!
     var fromY: Int!
     var captureX: Int!
@@ -27,20 +27,33 @@ class FanoronaViewController: UIViewController{
     var approachRemoveY: Int!
     var withdrwalRemoveX: Int!
     var withdrwalRemoveY: Int!
-    var isStoneSelected: Bool
-    var forceUserToMove: Bool
-    var mustDecideCaptureDirection: Bool
-    var isGameOver: Bool
-    var isOpponentAI: Bool
+    var isStoneSelected: Bool!
+    var forceUserToMove: Bool!
+    var mustDecideCaptureDirection: Bool!
+    var isGameOver: Bool!
+    var isOpponentAI: Bool!
     var isPaikaGlobal: Bool!
     var isSacrificeGlobal: Bool!
     var timer: NSTimer!
     
-    override init() {
+    
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    var headerHeight: CGFloat{
+        return navigationBar.frame.size.height
+    }
+    let boardFrameSize: CGFloat = 20
+    var boardHeightSize: CGFloat!
+    var boardWidthSize: CGFloat!
+    var boardOriginX: CGFloat!
+    var boardOriginY: CGFloat!
+    var cellSize: CGFloat!
+    var collectionView: UICollectionView!
+    
+    required init(coder aDecoder: NSCoder) {
         boardWidth = 9
         boardHeight = 5
         isOpponentAI = true
-        if isOpponentAI {
+        if isOpponentAI! {
             aiVersion = 0
             aiDepth = 2
         }
@@ -50,11 +63,7 @@ class FanoronaViewController: UIViewController{
         mustDecideCaptureDirection = false
         isGameOver = false
         board.reset(boardWidth, y: boardHeight)
-        super.init()
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
