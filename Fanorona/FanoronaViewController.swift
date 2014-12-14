@@ -76,6 +76,7 @@ class FanoronaViewController: UIViewController{
         boardView = UIView(frame: CGRectMake(0, 0, stoneSize*CGFloat(boardWidth), stoneSize*CGFloat(boardHeight)))
         boardView.backgroundColor = UIColor.redColor()
         boardView.center = CGPoint(x: view.center.x, y: view.center.y + headerHeight/2)
+        initFieldButtons()
         for stone in board.state {
             stone.buttonSize = stoneSize
             stone.initButton()
@@ -93,19 +94,25 @@ class FanoronaViewController: UIViewController{
         }
     }
     
-    func showPossibleMoves(stone: Stone){
-        let possibleMoves = board.getPossibleMoves(stone)
-        var moveButton: UIButton
-        for move in possibleMoves {
-            moveButton = UIButton.buttonWithType(.Custom) as UIButton
-            moveButton.frame = CGRectMake(CGFloat(move.x)*stoneSize, CGFloat(move.y)*stoneSize, stoneSize, stoneSize)
-            moveButton.layer.cornerRadius = 0.5 * moveButton.bounds.size.width
-            moveButton.backgroundColor = UIColor.yellowColor()
-            moveButton.contentMode = .Redraw
-            moveButton.addTarget(self, action: Selector("vsModeLocalPlayer:"), forControlEvents: .TouchUpInside)
-            boardView.addSubview(moveButton)
-            possibleMoveButtons.append(moveButton)
+    func initFieldButtons(){
+        var fieldButton: UIButton
+        for var x = 0; x < boardWidth; ++x{
+            for var y = 0; y < boardHeight; ++y{
+                fieldButton = UIButton.buttonWithType(.Custom) as UIButton
+                fieldButton.frame = CGRectMake(CGFloat(x)*stoneSize, CGFloat(y)*stoneSize, stoneSize, stoneSize)
+                fieldButton.addTarget(self, action: Selector("vsModeLocalPlayer:"), forControlEvents: .TouchUpInside)
+                boardView.addSubview(fieldButton)
+            }
         }
+//        let possibleMoves = board.getPossibleMoves(stone)
+//        var moveButton: UIButton
+//        for move in possibleMoves {
+//            moveButton = UIButton.buttonWithType(.Custom) as UIButton
+//            moveButton.frame = CGRectMake(CGFloat(move.x)*stoneSize, CGFloat(move.y)*stoneSize, stoneSize, stoneSize)
+//            moveButton.addTarget(self, action: Selector("vsModeLocalPlayer:"), forControlEvents: .TouchUpInside)
+//            boardView.addSubview(moveButton)
+//            possibleMoveButtons.append(moveButton)
+//        }
     }
     
     func hidePossibleMoves(){
@@ -116,30 +123,21 @@ class FanoronaViewController: UIViewController{
     }
     
     func attempToSelectStone(sender: UIButton){
-//        let buffX = Int(sender.frame.origin.x) / Int(stoneSize)
-//        let buffY = Int(sender.frame.origin.y) / Int(stoneSize)
-//        if !stoneIsSelected {
-            fromX = Int(sender.frame.origin.x) / Int(stoneSize)
-            fromY = Int(sender.frame.origin.y) / Int(stoneSize)
-            println("Button \(fromX), \(fromY) clicked.")
+        fromX = Int(sender.frame.origin.x) / Int(stoneSize)
+        fromY = Int(sender.frame.origin.y) / Int(stoneSize)
+        println("Button \(fromX), \(fromY) clicked.")
+        if !board.posIsEmpty(fromX, y: fromY) {
             selectedStone = board.getStone(fromX, y: fromY)!
             if selectedStone!.color != board.turn {
                 println("Not your turn")
                 return
             }
             stoneIsSelected = true
-            showPossibleMoves(selectedStone!)
+//          showPossibleMoves(selectedStone!)
             println("Game is now in selected state.")
-//        } else {
-//            if buffX == fromX && buffY == fromY {
-//                stoneIsSelected = false
-//                selectedStone = nil
-//                hidePossibleMoves()
-//                println("You deselected your stone")
-//            } else {
-//                
-//            }
-//        }
+        } else {
+            println("Empty position.")
+        }
     }
     
     func attemptToMoveStone(sender: UIButton){
@@ -160,7 +158,7 @@ class FanoronaViewController: UIViewController{
             if destinationStone!.x == fromX && destinationStone!.y == fromY && !forceUserToMove {
                 stoneIsSelected = false
                 selectedStone = nil
-                hidePossibleMoves()
+//                hidePossibleMoves()
                 println("You deselected your stone")
             }
             return
@@ -171,16 +169,7 @@ class FanoronaViewController: UIViewController{
             moveType = board.moveStone(selectedStone!, nextX: toX, nextY: toY)
         }
         if moveType != .Err {
-            if moveType == .CaptureDecision{
-                let diffX = toX - fromX
-                let diffY = toY - fromY
-                approachRemoveX = fromX + 2 * diffX
-                approachRemoveY = fromY + 2 * diffY
-                withdrwalRemoveX = fromX - diffX
-                withdrwalRemoveY = fromY - diffY
-                println("Either (\(approachRemoveX), \(approachRemoveY)) by approach or (\(withdrwalRemoveX), \(withdrwalRemoveY)) by withdrwal will be removed.")
-                mustDecideCaptureDirection = true
-            } else if mustDecideCaptureDirection {
+            if mustDecideCaptureDirection {
                 println("hello2")
                 if (captureX == approachRemoveX && captureY == approachRemoveY) {
                     moveType = .Approach
@@ -189,6 +178,15 @@ class FanoronaViewController: UIViewController{
                     moveType = .Withdrawal
                     mustDecideCaptureDirection = false
                 }
+            } else if moveType == .CaptureDecision {
+                let diffX = toX - fromX
+                let diffY = toY - fromY
+                approachRemoveX = fromX + 2 * diffX
+                approachRemoveY = fromY + 2 * diffY
+                withdrwalRemoveX = fromX - diffX
+                withdrwalRemoveY = fromY - diffY
+                println("Either (\(approachRemoveX), \(approachRemoveY)) by approach or (\(withdrwalRemoveX), \(withdrwalRemoveY)) by withdrwal will be removed.")
+                mustDecideCaptureDirection = true
             }
             if !mustDecideCaptureDirection{
                 board.updateBoard(moveType, stone: selectedStone!, nextX: toX, nextY: toY)
@@ -213,7 +211,7 @@ class FanoronaViewController: UIViewController{
             forceUserToMove = false
             stoneIsSelected = false
             selectedStone = nil
-            hidePossibleMoves()
+//            hidePossibleMoves()
             println("User's turn complete.")
         }
     }

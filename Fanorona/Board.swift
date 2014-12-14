@@ -333,8 +333,12 @@ class Board {
                     }
                 }
             }
+            state.removeAtIndex(find(state,stone)!)
+            stone.x = nextX
+            stone.y = nextY
             stone.prevDirection = Position(x: diffX, y: diffY)
             stone.prevPositions.append(Position(x: currentX, y: currentY))
+            state.append(stone)
             multiMovePos = Position(x: nextX, y: nextY)
             if !ableToCapture(stone){
                 stone.clearHistory()
@@ -342,13 +346,13 @@ class Board {
                 multiMovePos = nil
             }
         } else {
+            state.removeAtIndex(find(state,stone)!)
+            stone.x = nextX
+            stone.y = nextY
+            state.append(stone)
             alternateTurn(turn)
             multiMovePos = nil
         }
-        state.removeAtIndex(find(state,stone)!)
-        stone.x = nextX
-        stone.y = nextY
-        state.append(stone)
         UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
             stone.button.frame.origin.x = CGFloat(nextX)*stone.buttonSize
             stone.button.frame.origin.y = CGFloat(nextY)*stone.buttonSize

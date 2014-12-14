@@ -39,7 +39,6 @@ class Stone : Equatable {
         button.frame = CGRectMake(CGFloat(x)*buttonSize, CGFloat(y)*buttonSize, buttonSize, buttonSize)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.backgroundColor = color
-        button.contentMode = .Redraw
     }
     
     func setInvertIntersectionType(size_x: Int, size_y: Int) {
