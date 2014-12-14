@@ -334,8 +334,8 @@ class Board {
                 }
             }
             state.removeAtIndex(find(state,stone)!)
-            stone.x = nextX
-            stone.y = nextY
+            stone.setX(nextX)
+            stone.setY(nextY)
             stone.prevDirection = Position(x: diffX, y: diffY)
             stone.prevPositions.append(Position(x: currentX, y: currentY))
             state.append(stone)
@@ -347,8 +347,8 @@ class Board {
             }
         } else {
             state.removeAtIndex(find(state,stone)!)
-            stone.x = nextX
-            stone.y = nextY
+            stone.setX(nextX)
+            stone.setY(nextY)
             state.append(stone)
             alternateTurn(turn)
             multiMovePos = nil

@@ -96,10 +96,24 @@ class FanoronaViewController: UIViewController{
     
     func initFieldButtons(){
         var fieldButton: UIButton
+        let sqrtDiff = (boardWidth - boardHeight) * (boardWidth - boardHeight)
+        let invertIntersection = (sqrtDiff == 4 || sqrtDiff == 36 || sqrtDiff == 100)
+        var isStrongIntersection: Bool
         for var x = 0; x < boardWidth; ++x{
             for var y = 0; y < boardHeight; ++y{
+                if invertIntersection {
+                    isStrongIntersection = ((x + y) % 2 == 1)
+                } else {
+                    isStrongIntersection = ((x + y) % 2 == 0)
+                }
                 fieldButton = UIButton.buttonWithType(.Custom) as UIButton
                 fieldButton.frame = CGRectMake(CGFloat(x)*stoneSize, CGFloat(y)*stoneSize, stoneSize, stoneSize)
+                if isStrongIntersection {
+                    fieldButton.setImage(UIImage(named: "strongIntersect"), forState: .Normal)
+                } else {
+                    fieldButton.setImage(UIImage(named: "weakIntersect"), forState: .Normal)
+                }
+                fieldButton.adjustsImageWhenHighlighted = false
                 fieldButton.addTarget(self, action: Selector("vsModeLocalPlayer:"), forControlEvents: .TouchUpInside)
                 boardView.addSubview(fieldButton)
             }
