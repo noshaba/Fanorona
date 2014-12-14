@@ -69,6 +69,14 @@ class FanoronaViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        boardOriginX = boardFrameSize
+        boardOriginY = headerHeight + boardFrameSize
+        boardWidthSize = view.frame.size.width - boardFrameSize*2
+        boardHeightSize = view.frame.size.height - headerHeight - boardFrameSize*2
+        cellSize = boardHeightSize/CGFloat(boardHeight)
+        if CGFloat(boardWidth)*cellSize > boardWidthSize {
+            cellSize = boardWidthSize/CGFloat(boardWidth)
+        }
     }
 }
 
