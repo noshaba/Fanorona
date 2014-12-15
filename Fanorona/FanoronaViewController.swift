@@ -54,10 +54,10 @@ class FanoronaViewController: UIViewController{
     var boardView: UIView!
     
     required init(coder aDecoder: NSCoder) {
-        boardWidth = 9
+        boardWidth = 5
         boardHeight = 5
         if opponentIsAI {
-            aiVersion = .Random
+            aiVersion = .Difference
             aiDepth = 2
         }
         board.reset(boardWidth, y: boardHeight)
@@ -244,7 +244,6 @@ class FanoronaViewController: UIViewController{
         networkToPositions.removeAll()
         networkFromPositions.removeAll()
         networkMoveTypes.removeAll()
-        println("hello")
         while board.turn == turn {
             if !self.isGameOver {
 //                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
@@ -257,16 +256,17 @@ class FanoronaViewController: UIViewController{
 //                dispatch_sync(aiQueue!, {
 //                    dispatch_suspend(aiQueue)
                 NSThread.sleepForTimeInterval(1.0)
-                    self.ai = AI(utilType: self.aiVersion!, gameBoard: self.board)
-                    self.aiMove = self.ai!.getBestMove()
-                    self.networkFromPositions.append(Position(x: self.aiMove!.stone.x, y:self.aiMove!.stone.y))
-                    self.networkToPositions.append(self.aiMove!.nextPos)
-                    self.networkMoveTypes.append(self.aiMove!.moveType)
-                    self.board.updateBoard(self.aiMove!)
-                    self.fromX = self.aiMove!.nextPos.x
-                    self.fromY = self.aiMove!.nextPos.y
-                    self.stoneIsSelected = true
-                    println("AI move done.")
+                self.ai = AI(utilType: self.aiVersion!, gameBoard: self.board)
+                self.aiMove = self.ai!.getBestMove()
+                self.networkFromPositions.append(Position(x: self.aiMove!.stone.x, y:self.aiMove!.stone.y))
+                self.networkToPositions.append(self.aiMove!.nextPos)
+                println("AI moved from (\(self.aiMove!.stone.x),\(self.aiMove!.stone.y)) to (\(self.aiMove!.nextPos.x),\(self.aiMove!.nextPos.y))")
+                self.networkMoveTypes.append(self.aiMove!.moveType)
+                self.board.updateBoard(self.aiMove!)
+                self.fromX = self.aiMove!.nextPos.x
+                self.fromY = self.aiMove!.nextPos.y
+                self.stoneIsSelected = true
+                println("AI move done.")
                     //** TODO: Check goal state!!! **//
                     //                })
 //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in

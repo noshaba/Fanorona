@@ -18,6 +18,28 @@ class Board {
     var turn: UIColor
     var state = [Stone]()
     var multiMovePos: Position?
+    var utilityDifference: Int{
+        var white = 0
+        var black = 0
+        for stone in state {
+            if stone.color == UIColor.whiteColor() {
+                ++white
+            } else {
+                ++black
+            }
+        }
+        return white - black
+    }
+    
+    var utilityOpponentCount: Int {
+        var count = 0
+        for stone in state {
+            if stone.color != turn {
+                ++count
+            }
+        }
+        return count
+    }
     
     enum GoalState: Printable{
         case Draw
@@ -26,11 +48,21 @@ class Board {
         case Continue
         
         var description: String{
-            switch(self){
+            switch self {
             case .Draw: return "Draw"
             case .WhiteWon: return "White won"
             case .BlackWon: return "Black won"
             case .Continue: return "Game continues"
+            }
+        }
+        
+        var value: Int? {
+            switch self {
+            case .Draw: return 0
+            case .WhiteWon: return 1
+            case .BlackWon: return -1
+            default:
+                return nil
             }
         }
     }
@@ -224,10 +256,10 @@ class Board {
             }
         }
         for stone in stones {
-            println("s: \(stone.x),\(stone.y)")
+//            println("s: \(stone.x),\(stone.y)")
             let moveFromOneStone = getPossibleMoves(stone)
             for position in moveFromOneStone {
-                println("m: \(position.x),\(position.y)")
+//                println("m: \(position.x),\(position.y)")
                 if(isPaika(turn)){
                     moves.append(Move(stone: stone,nextPos: position,moveType: moveStone(stone,nextX: position.x,nextY: position.y)))
                 } else {
@@ -238,8 +270,6 @@ class Board {
                 }
             }
         }
-        println("")
-        println("")
         return moves
     }
     
@@ -380,8 +410,10 @@ class Board {
             multiMovePos = nil
         }
 //        UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
-            stone.button.frame.origin.x = CGFloat(nextX)*stone.buttonSize
-            stone.button.frame.origin.y = CGFloat(nextY)*stone.buttonSize
+        stone.button.transform = CGAffineTransformMakeScale(1, 1)
+        stone.button.frame.origin.x = CGFloat(nextX)*stone.buttonSize
+        stone.button.frame.origin.y = CGFloat(nextY)*stone.buttonSize
+        stone.button.transform = CGAffineTransformMakeScale(0.9, 0.9)
 //            }, completion: { finished in
 //                println("stone moved")
 //        })
