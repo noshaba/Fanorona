@@ -59,7 +59,7 @@ class FanoronaViewController: UIViewController{
         boardHeight = GameSettings.boardHeight
         opponentIsAI = GameSettings.opponentIsAI
         if opponentIsAI {
-            aiVersion = .Difference
+            aiVersion = GameSettings.aiLevel
             aiColor = GameSettings.aiColor
             aiInit = aiColor == UIColor.whiteColor()
         }

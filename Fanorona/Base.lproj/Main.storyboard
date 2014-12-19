@@ -176,6 +176,29 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Computer Level:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3I-Tw-TJe">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="323" y="113" width="128" height="21"/>
+                                </variation>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1MA-aa-1z4">
+                                <rect key="frame" x="-61" y="-14" width="123" height="29"/>
+                                <segments>
+                                    <segment title="Easy"/>
+                                    <segment title="Medium"/>
+                                    <segment title="Hard"/>
+                                </segments>
+                                <variation key="heightClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="323" y="163" width="235" height="29"/>
+                                </variation>
+                                <connections>
+                                    <action selector="changeAILevel:" destination="swh-8t-r6W" eventType="valueChanged" id="Hcq-Zi-54L"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -225,6 +248,8 @@
                                 <exclude reference="cr2-YL-FPf"/>
                                 <exclude reference="5pl-7L-aUe"/>
                                 <exclude reference="PZg-Mq-Izj"/>
+                                <exclude reference="l3I-Tw-TJe"/>
+                                <exclude reference="1MA-aa-1z4"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="81q-Ge-UN9"/>
@@ -274,6 +299,8 @@
                                 <include reference="cr2-YL-FPf"/>
                                 <include reference="5pl-7L-aUe"/>
                                 <include reference="PZg-Mq-Izj"/>
+                                <include reference="l3I-Tw-TJe"/>
+                                <include reference="1MA-aa-1z4"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="81q-Ge-UN9"/>
@@ -313,8 +340,12 @@
                     <connections>
                         <outlet property="aiColorControl" destination="ar7-cr-d0y" id="KEC-H4-UZf"/>
                         <outlet property="aiColorLabel" destination="PZg-Mq-Izj" id="g9e-px-Njv"/>
+                        <outlet property="aiLevelControl" destination="1MA-aa-1z4" id="5Ca-X4-cQ1"/>
+                        <outlet property="aiLevelLabel" destination="l3I-Tw-TJe" id="umN-6X-5pa"/>
                         <outlet property="boardHeight" destination="cXS-Qo-uIU" id="45V-pg-nAG"/>
                         <outlet property="boardWidth" destination="ksh-pj-Ipb" id="2mW-bg-qxP"/>
+                        <outlet property="heightStepper" destination="5pl-7L-aUe" id="RsY-YJ-8CU"/>
+                        <outlet property="widthStepper" destination="cr2-YL-FPf" id="y4t-IH-gxD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVy-O1-Q7u" userLabel="First Responder" sceneMemberID="firstResponder"/>

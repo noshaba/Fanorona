@@ -10,9 +10,9 @@ import UIKit
 
 class AI {
     enum UtilType{
-        case Random
-        case Difference
-        case OpponentCount
+        case Easy
+        case Medium
+        case Hard
     }
     var alphaCut = 0
     var betaCut = 0
@@ -54,7 +54,7 @@ class AI {
     }
     
     func getBestMove() -> Move? {
-        if utilType == .Random {
+        if utilType == .Easy {
             let possibleMoves = rootNode.state.getAllPossibleMoves()
             return possibleMoves[Int(arc4random_uniform(UInt32(possibleMoves.count)))]
         }
@@ -74,11 +74,9 @@ class AI {
         printStats()
         for var i = 0; i < rootNode.subNodes.count; ++i {
             if rootNode.subNodes[i].utilVal == value {
-                println("yay")
                 return rootNode.state.getAllPossibleMoves()[i]
             }
         }
-        println(":(")
         return nil
     }
     
@@ -90,7 +88,7 @@ class AI {
             node.utilVal = node.state.checkGoalState().value!
             println("node value: \(node.utilVal)")
             return node.utilVal
-        } else if earlyCut {
+        } else if utilType == .Medium && earlyCut {
             if node.state.utilityOpponentCount == 0 {
                 node.utilVal = node.state.utilityDifference
             } else {
@@ -127,7 +125,7 @@ class AI {
             node.utilVal = node.state.checkGoalState().value!
             println("node value: \(node.utilVal)")
             return node.utilVal
-        } else if earlyCut {
+        } else if utilType == .Medium && earlyCut {
             if node.state.utilityOpponentCount == 0 {
                 node.utilVal = node.state.utilityDifference
             } else {
