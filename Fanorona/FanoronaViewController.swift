@@ -54,8 +54,8 @@ class FanoronaViewController: UIViewController{
     var boardView: UIView!
     
     required init(coder aDecoder: NSCoder) {
-        boardWidth = 5
-        boardHeight = 5
+        boardWidth = 3
+        boardHeight = 3
         if opponentIsAI {
             aiVersion = .Difference
             aiDepth = 2

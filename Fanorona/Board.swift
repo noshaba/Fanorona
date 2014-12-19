@@ -59,8 +59,8 @@ class Board {
         var value: Int? {
             switch self {
             case .Draw: return 0
-            case .WhiteWon: return 1
-            case .BlackWon: return -1
+            case .WhiteWon: return 999
+            case .BlackWon: return -999
             default:
                 return nil
             }
