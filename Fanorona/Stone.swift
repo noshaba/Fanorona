@@ -91,6 +91,15 @@ class Stone : Equatable {
         setIntersectionType()
     }
     
+    func selectStone(){
+        button.layer.borderWidth = 2.0
+        button.layer.borderColor = UIColor.greenColor().CGColor
+    }
+    
+    func deselectStone(){
+        button.layer.borderWidth = 0
+    }
+    
 }
 
 func == (left: Stone, right: Stone) -> Bool {

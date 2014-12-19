@@ -158,6 +158,7 @@ class FanoronaViewController: UIViewController{
                 println("Not your turn")
                 return
             }
+            selectedStone?.selectStone()
             stoneIsSelected = true
             println("Game is now in selected state.")
         } else {
@@ -189,6 +190,7 @@ class FanoronaViewController: UIViewController{
                     forceUserToMove = false
                     println("User's move complete.")
                 }
+                selectedStone?.deselectStone()
                 stoneIsSelected = false
                 selectedStone = nil
             }
@@ -240,6 +242,7 @@ class FanoronaViewController: UIViewController{
             networkMoveTypes.append(moveType)
             forceUserToMove = false
             stoneIsSelected = false
+            selectedStone?.deselectStone()
             selectedStone = nil
             println("User's turn complete.")
         }
