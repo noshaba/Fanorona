@@ -13,8 +13,9 @@ class FanoronaViewController: UIViewController{
     var boardWidth: Int!
     var boardHeight: Int!
     var time: Int!
+    var aiColor: UIColor?
+    var aiInit: Bool?
     var aiVersion: AI.UtilType?
-    var aiDepth: Int?
     var ai: AI?
     var aiMove: Move?
     var goalState = Board.GoalState.Continue
@@ -58,7 +59,8 @@ class FanoronaViewController: UIViewController{
         boardHeight = 3
         if opponentIsAI {
             aiVersion = .Difference
-            aiDepth = 2
+            aiColor = UIColor.blackColor()
+            aiInit = aiColor == UIColor.whiteColor()
         }
         board.reset(boardWidth, y: boardHeight)
         super.init(coder: aDecoder)
@@ -117,7 +119,7 @@ class FanoronaViewController: UIViewController{
         if !opponentIsAI {
             vsPlayer(sender)
         } else {
-            vsBlackAI(sender)
+            vsAI(sender)
         }
     }
     
@@ -130,8 +132,12 @@ class FanoronaViewController: UIViewController{
         /** TODO: Check goal state!!! **/
     }
     
-    func vsBlackAI(sender: UIButton){
-        if board.turn == UIColor.whiteColor() {
+    func vsAI(sender: UIButton){
+        if aiColor == UIColor.whiteColor() && aiInit!{
+            self.attemptAIMove()
+            aiInit = false
+        }
+        if board.turn != aiColor! && !aiInit! {
             if !stoneIsSelected {
                 attempToSelectStone(sender)
             } else {
@@ -139,9 +145,7 @@ class FanoronaViewController: UIViewController{
             }
             /** TODO: Check goal state!!! **/
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
-////            NSThread.sleepForTimeInterval(0.8)
-//            sleep(1)
-                if self.board.turn == UIColor.blackColor(){
+                if self.board.turn == self.aiColor! {
                     self.attemptAIMove()
                 }
             })
@@ -246,17 +250,8 @@ class FanoronaViewController: UIViewController{
         networkMoveTypes.removeAll()
         while board.turn == turn {
             if !self.isGameOver {
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
-//                sleep(1)
-//                var aiQueue: dispatch_queue_t? = nil
-//                var onceToken: dispatch_once_t = 0
-//                dispatch_once(&onceToken) {
-//                    aiQueue = dispatch_queue_create(nil, DISPATCH_QUEUE_SERIAL);
-//                }
-//                dispatch_sync(aiQueue!, {
-//                    dispatch_suspend(aiQueue)
                 NSThread.sleepForTimeInterval(1.0)
-                self.ai = AI(utilType: self.aiVersion!, gameBoard: self.board)
+                self.ai = AI(aiColor: self.aiColor!, utilType: self.aiVersion!, gameBoard: self.board)
                 self.aiMove = self.ai!.getBestMove()
                 self.networkFromPositions.append(Position(x: self.aiMove!.stone.x, y:self.aiMove!.stone.y))
                 self.networkToPositions.append(self.aiMove!.nextPos)
@@ -267,12 +262,7 @@ class FanoronaViewController: UIViewController{
                 self.fromY = self.aiMove!.nextPos.y
                 self.stoneIsSelected = true
                 println("AI move done.")
-                    //** TODO: Check goal state!!! **//
-                    //                })
-//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
-//                        dispatch_resume(aiQueue)
-//                    })
-//                })
+                //** TODO: Check goal state!!! **//
             }
             stoneIsSelected = false
         }

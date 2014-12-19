@@ -22,8 +22,10 @@ class AI {
     
     var utilType: UtilType
     var rootNode: AINode
+    var aiColor: UIColor
     
-    init(utilType: UtilType, gameBoard: Board){
+    init(aiColor: UIColor, utilType: UtilType, gameBoard: Board){
+        self.aiColor = aiColor
         self.utilType = utilType
         rootNode = AINode(state: gameBoard)
     }
@@ -60,7 +62,14 @@ class AI {
     }
     
     func alphaBetaSearch() -> Move? {
-        let value = minBlackValue(rootNode, alpha: -999999, beta: 999999)
+        var value : Int
+        if aiColor == UIColor.blackColor(){
+            // if AI is black
+            value = minBlackValue(rootNode, alpha: -999999, beta: 999999)
+        } else {
+            // if AI is white
+            value = maxWhiteValue(rootNode, alpha: -999999, beta: 999999)
+        }
         println("value: \(value)")
         printStats()
         for var i = 0; i < rootNode.subNodes.count; ++i {
@@ -74,7 +83,7 @@ class AI {
     }
     
     func maxWhiteValue(node: AINode,var alpha: Int, beta: Int) -> Int {
-        if NSDate().timeIntervalSinceNow - startTime == 1000 {
+        if NSDate().timeIntervalSince1970 - startTime >= 10 {
             earlyCut = true
         }
         if node.state.checkGoalState() != .Continue {
@@ -111,7 +120,7 @@ class AI {
     }
     
     func minBlackValue(node: AINode,alpha: Int, var beta: Int) -> Int {
-        if NSDate().timeIntervalSinceNow - startTime == 1000 {
+        if NSDate().timeIntervalSince1970 - startTime >= 10 {
             earlyCut = true
         }
         if node.state.checkGoalState() != .Continue {
