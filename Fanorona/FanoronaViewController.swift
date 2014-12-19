@@ -37,7 +37,7 @@ class FanoronaViewController: UIViewController{
     var forceUserToMove = false
     var mustDecideCaptureDirection = false
     var isGameOver = false
-    var opponentIsAI = false
+    var opponentIsAI: Bool
     var isPaikaGlobal: Bool!
     var isSacrificeGlobal: Bool!
     var timer: NSTimer!
@@ -55,11 +55,12 @@ class FanoronaViewController: UIViewController{
     var boardView: UIView!
     
     required init(coder aDecoder: NSCoder) {
-        boardWidth = 5
-        boardHeight = 5
+        boardWidth = GameSettings.boardWidth
+        boardHeight = GameSettings.boardHeight
+        opponentIsAI = GameSettings.opponentIsAI
         if opponentIsAI {
             aiVersion = .Difference
-            aiColor = UIColor.blackColor()
+            aiColor = GameSettings.aiColor
             aiInit = aiColor == UIColor.whiteColor()
         }
         board.reset(boardWidth, y: boardHeight)
