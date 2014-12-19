@@ -210,6 +210,8 @@ class FanoronaViewController: UIViewController{
                     moveType = .Withdrawal
                     mustDecideCaptureDirection = false
                 }
+                board.getStone(approachRemoveX, y: approachRemoveY)?.deselectStone()
+                board.getStone(withdrwalRemoveX, y: withdrwalRemoveY)?.deselectStone()
             } else if moveType == .CaptureDecision {
                 let diffX = toX - fromX
                 let diffY = toY - fromY
@@ -217,6 +219,8 @@ class FanoronaViewController: UIViewController{
                 approachRemoveY = fromY + 2 * diffY
                 withdrwalRemoveX = fromX - diffX
                 withdrwalRemoveY = fromY - diffY
+                board.getStone(approachRemoveX, y: approachRemoveY)?.captureDecision()
+                board.getStone(withdrwalRemoveX, y: withdrwalRemoveY)?.captureDecision()
                 println("Either (\(approachRemoveX), \(approachRemoveY)) by approach or (\(withdrwalRemoveX), \(withdrwalRemoveY)) by withdrwal will be removed.")
                 mustDecideCaptureDirection = true
             }

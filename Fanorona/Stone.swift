@@ -100,6 +100,11 @@ class Stone : Equatable {
         button.layer.borderWidth = 0
     }
     
+    func captureDecision(){
+        button.layer.borderWidth = 2.0
+        button.layer.borderColor = UIColor.yellowColor().CGColor
+    }
+    
 }
 
 func == (left: Stone, right: Stone) -> Bool {
