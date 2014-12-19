@@ -37,7 +37,7 @@ class FanoronaViewController: UIViewController{
     var forceUserToMove = false
     var mustDecideCaptureDirection = false
     var isGameOver = false
-    var opponentIsAI = true
+    var opponentIsAI = false
     var isPaikaGlobal: Bool!
     var isSacrificeGlobal: Bool!
     var timer: NSTimer!
@@ -55,8 +55,8 @@ class FanoronaViewController: UIViewController{
     var boardView: UIView!
     
     required init(coder aDecoder: NSCoder) {
-        boardWidth = 3
-        boardHeight = 3
+        boardWidth = 5
+        boardHeight = 5
         if opponentIsAI {
             aiVersion = .Difference
             aiColor = UIColor.blackColor()
@@ -129,7 +129,7 @@ class FanoronaViewController: UIViewController{
         } else {
             attemptToMoveStone(sender)
         }
-        /** TODO: Check goal state!!! **/
+        checkGoalState()
     }
     
     func vsAI(sender: UIButton){
@@ -143,9 +143,8 @@ class FanoronaViewController: UIViewController{
             } else {
                 attemptToMoveStone(sender)
             }
-            /** TODO: Check goal state!!! **/
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.8 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
-                if self.board.turn == self.aiColor! {
+                if self.board.turn == self.aiColor! && self.checkGoalState() == .Continue {
                     self.attemptAIMove()
                 }
             })
@@ -262,9 +261,37 @@ class FanoronaViewController: UIViewController{
                 self.fromY = self.aiMove!.nextPos.y
                 self.stoneIsSelected = true
                 println("AI move done.")
-                //** TODO: Check goal state!!! **//
+                checkGoalState()
             }
             stoneIsSelected = false
         }
+    }
+    
+    func checkGoalState() -> Board.GoalState {
+        switch(board.checkGoalState()){
+        case .Draw:
+            isGameOver = true
+            alertView("Draw!")
+            return .Draw
+        case .BlackWon:
+            isGameOver = true
+            alertView("Black Won!")
+            return .BlackWon
+        case .WhiteWon:
+            isGameOver = true
+            alertView("White Won!")
+            return .WhiteWon
+        default:
+            return .Continue
+        }
+    }
+    
+    func alertView(msg: String){
+        var alert = UIAlertController(title: "Game Over", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{ action in
+            let start = self.storyboard?.instantiateViewControllerWithIdentifier("Start") as ViewController
+            self.showViewController(start, sender: self)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }

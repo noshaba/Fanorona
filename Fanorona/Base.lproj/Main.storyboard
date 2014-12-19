@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Fanorona" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Start" id="BYZ-38-t0r" customClass="ViewController" customModule="Fanorona" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -321,6 +321,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="o6k-eM-j8U"/>
-        <segue reference="0hk-dq-A1u"/>
+        <segue reference="SgY-DC-j2f"/>
     </inferredMetricsTieBreakers>
 </document>
