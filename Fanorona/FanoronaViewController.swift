@@ -66,7 +66,7 @@ class FanoronaViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        view.backgroundColor = UIColor.blueColor()
+        view.backgroundColor = UIColor(red: 0, green: 55.0/255.0 , blue: 97.0/255.0, alpha: 1.0)
         boardWidthSize = view.frame.size.width - boardFrameSize*2
         boardHeightSize = view.frame.size.height - headerHeight - boardFrameSize*2
         stoneSize = boardHeightSize/CGFloat(boardHeight)
@@ -74,7 +74,7 @@ class FanoronaViewController: UIViewController{
             stoneSize = boardWidthSize/CGFloat(boardWidth)
         }
         boardView = UIView(frame: CGRectMake(0, 0, stoneSize*CGFloat(boardWidth), stoneSize*CGFloat(boardHeight)))
-        boardView.backgroundColor = UIColor.redColor()
+        boardView.backgroundColor = UIColor(red: 131.0/255.0, green: 208.0/255.0 , blue: 245.0/255.0, alpha: 1.0)
         boardView.center = CGPoint(x: view.center.x, y: view.center.y + headerHeight/2)
         initFieldButtons()
         for stone in board.state {
