@@ -171,7 +171,6 @@ class FanoronaViewController: UIViewController{
             toY = Int(sender.frame.origin.y) / Int(stoneSize)
             println("Button \(toX), \(toY) clicked.")
         } else {
-            println("hello1")
             captureX = Int(sender.frame.origin.x) / Int(stoneSize)
             captureY = Int(sender.frame.origin.y) / Int(stoneSize)
             println("Button \(captureX), \(captureY) clicked.")
@@ -180,10 +179,18 @@ class FanoronaViewController: UIViewController{
         let destinationStone = board.getStone(toX, y: toY)
         if destinationStone != nil {
             println("Stone already exists there.")
-            if destinationStone!.x == fromX && destinationStone!.y == fromY && !forceUserToMove {
+            if destinationStone!.x == fromX && destinationStone!.y == fromY {
+                stoneIsSelected = false
+                println("You deselected your stone")
+                if forceUserToMove {
+                    selectedStone!.clearHistory()
+                    board.alternateTurn(board.turn)
+                    board.multiMovePos = nil
+                    forceUserToMove = false
+                    println("User's move complete.")
+                }
                 stoneIsSelected = false
                 selectedStone = nil
-                println("You deselected your stone")
             }
             return
         }
@@ -194,7 +201,6 @@ class FanoronaViewController: UIViewController{
         }
         if moveType != .Err {
             if mustDecideCaptureDirection {
-                println("hello2")
                 if (captureX == approachRemoveX && captureY == approachRemoveY) {
                     moveType = .Approach
                     mustDecideCaptureDirection = false

@@ -68,9 +68,13 @@ class Settings: UIViewController {
         if GameSettings.opponentIsAI {
             aiColorLabel.hidden = false
             aiColorControl.hidden = false
+            aiLevelLabel.hidden = false
+            aiLevelControl.hidden = false
         } else {
             aiColorLabel.hidden = true
             aiColorControl.hidden = true
+            aiLevelLabel.hidden = true
+            aiLevelControl.hidden = true
         }
     }
     @IBAction func changeOpponentColor(sender: UISegmentedControl) {

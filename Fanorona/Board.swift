@@ -124,7 +124,7 @@ class Board {
         }
     }
     
-    private func alternateTurn(turn: UIColor){
+    func alternateTurn(turn: UIColor){
         if turn == UIColor.blackColor(){
             self.turn = UIColor.whiteColor()
         } else {
@@ -256,10 +256,8 @@ class Board {
             }
         }
         for stone in stones {
-//            println("s: \(stone.x),\(stone.y)")
             let moveFromOneStone = getPossibleMoves(stone)
             for position in moveFromOneStone {
-//                println("m: \(position.x),\(position.y)")
                 if(isPaika(turn)){
                     moves.append(Move(stone: stone,nextPos: position,moveType: moveStone(stone,nextX: position.x,nextY: position.y)))
                 } else {
