@@ -11,8 +11,7 @@ import UIKit
 class FanoronaViewController: UIViewController{
     let board = Board()
     var boardWidth: Int!
-    var boardHeight: Int!
-    var time: Int!
+    var boardHeight: Int! 
     var aiColor: UIColor?
     var aiInit: Bool?
     var aiVersion: AI.UtilType?
@@ -38,9 +37,6 @@ class FanoronaViewController: UIViewController{
     var mustDecideCaptureDirection = false
     var isGameOver = false
     var opponentIsAI: Bool
-    var isPaikaGlobal: Bool!
-    var isSacrificeGlobal: Bool!
-    var timer: NSTimer!
     var selectedStone: Stone?
     
     
