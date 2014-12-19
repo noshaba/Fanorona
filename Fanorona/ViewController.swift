@@ -8,5 +8,9 @@
 
 import UIKit
 
+/** 
+    class is only there to delegate to the start screen from the storyboard
+*/
+
 class ViewController: UIViewController {
 }

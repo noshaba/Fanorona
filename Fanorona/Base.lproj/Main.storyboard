@@ -345,6 +345,7 @@
                         <outlet property="boardHeight" destination="cXS-Qo-uIU" id="45V-pg-nAG"/>
                         <outlet property="boardWidth" destination="ksh-pj-Ipb" id="2mW-bg-qxP"/>
                         <outlet property="heightStepper" destination="5pl-7L-aUe" id="RsY-YJ-8CU"/>
+                        <outlet property="opponentControl" destination="bhg-l9-fvC" id="6DW-xU-snV"/>
                         <outlet property="widthStepper" destination="cr2-YL-FPf" id="y4t-IH-gxD"/>
                     </connections>
                 </viewController>

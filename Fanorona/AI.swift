@@ -8,27 +8,39 @@
 
 import UIKit
 
+/**
+    The AI determines the computer's next turn by using Alpha-Beta pruning
+*/
+
 class AI {
+    // Difficulty level of AI
     enum UtilType{
         case Easy
         case Medium
         case Hard
     }
+    // alpha-beta pruning stats
     var alphaCut = 0
     var betaCut = 0
     var generatedNodes = 0
     var earlyCut = false
     var startTime = NSDate().timeIntervalSince1970
     
-    var utilType: UtilType
-    var rootNode: AINode
-    var aiColor: UIColor
+    var utilType: UtilType  // difficulty level
+    var rootNode: AINode    // root node of tree
+    var aiColor: UIColor    // stone color of AI
     
     init(aiColor: UIColor, utilType: UtilType, gameBoard: Board){
         self.aiColor = aiColor
         self.utilType = utilType
         rootNode = AINode(state: gameBoard)
     }
+    
+    /**
+        Calculates the depth of the search tree recursively.
+        @param node Rootnode of the tree.
+        @return Height of tree.
+    */
     
     func getDepthOfTree(node: AINode) -> Int{
         if node.subNodes.isEmpty {
@@ -40,6 +52,10 @@ class AI {
         }
         return maxDepth + 1
     }
+    
+    /**
+        Prints the Alpha-Beta Pruning statistics on the console.
+    */
     
     func printStats(){
         println()
@@ -53,6 +69,11 @@ class AI {
         println()
     }
     
+    /**
+        Calculates the best possible move by the AI depending on the difficulty level.
+        @return Best move depending on difficulty level.
+    */
+    
     func getBestMove() -> Move? {
         if utilType == .Easy {
             let possibleMoves = rootNode.state.getAllPossibleMoves()
@@ -61,14 +82,19 @@ class AI {
         return alphaBetaSearch()
     }
     
+    /**
+        Creates the Alpha-Beta search tree and returns the best possible move determined by the Alpha-Beta pruning algorithm depending on the level of difficulty the AI has.
+        @return Best move calculated with Alpha-Beta pruning and depending on AI's difficulty level.
+    */
+    
     func alphaBetaSearch() -> Move? {
         var value : Int
         if aiColor == UIColor.blackColor(){
             // if AI is black
-            value = minBlackValue(rootNode, alpha: -999999, beta: 999999)
+            value = minBlackValue(rootNode, alpha: -999, beta: 999)
         } else {
             // if AI is white
-            value = maxWhiteValue(rootNode, alpha: -999999, beta: 999999)
+            value = maxWhiteValue(rootNode, alpha: -999, beta: 999)
         }
         println("value: \(value)")
         printStats()

@@ -23,6 +23,7 @@ class Settings: UIViewController {
     @IBOutlet weak var widthStepper: UIStepper!
     @IBOutlet weak var heightStepper: UIStepper!
     
+    @IBOutlet weak var opponentControl: UISegmentedControl!
     
     @IBOutlet weak var aiColorLabel: UILabel!
     @IBOutlet weak var aiColorControl: UISegmentedControl!
@@ -51,6 +52,12 @@ class Settings: UIViewController {
             break
         case AI.UtilType.Hard: aiLevelControl.selectedSegmentIndex = 2
             break
+        }
+        
+        if GameSettings.opponentIsAI {
+            opponentControl.selectedSegmentIndex = 0
+        } else {
+            opponentControl.selectedSegmentIndex = 1
         }
     }
     
