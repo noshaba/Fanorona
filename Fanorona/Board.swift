@@ -8,16 +8,27 @@
 
 import UIKit
 
+/**
+    The Board creates the current board and calculates every possible move for a stone and updates the board according to the player's decision. Furthermore, it also checks whether a goal state was reached or not.
+*/
+
 class Board {
+    // minimum and maximum board sizes
     var MIN_X: Int!
     var MAX_X: Int!
     var MIN_Y: Int!
     var MAX_Y: Int!
+    // maximal number of moves possible, if 40 or moves required, then the game is a draw!
     var MAX_MOVE: Int!
+    // possible move that determines a state
     var move: Int
+    // current turn color
     var turn: UIColor
+    // current state of the board
     var state = [Stone]()
+    // determines if a stone can do a successive capture
     var multiMovePos: Position?
+    // determines the
     var utilityDifference: Int{
         var white = 0
         var black = 0
@@ -30,7 +41,6 @@ class Board {
         }
         return white - black
     }
-    
     var utilityOpponentCount: Int {
         var count = 0
         for stone in state {
@@ -407,14 +417,10 @@ class Board {
             alternateTurn(turn)
             multiMovePos = nil
         }
-//        UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
         stone.button.transform = CGAffineTransformMakeScale(1, 1)
         stone.button.frame.origin.x = CGFloat(nextX)*stone.buttonSize
         stone.button.frame.origin.y = CGFloat(nextY)*stone.buttonSize
         stone.button.transform = CGAffineTransformMakeScale(0.9, 0.9)
-//            }, completion: { finished in
-//                println("stone moved")
-//        })
         ++move
         checkGoalState()
     }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+/**
+    The MoveType determines whether the next possible move done by a player is a Paika, an Approach or Withdrawal Capture or if the player has two decisions for either Approach or Withdrwal.
+*/
+
 enum MoveType: Printable{
     case Err
     case Paika
@@ -25,6 +29,10 @@ enum MoveType: Printable{
     }
 }
 
+/**
+    The Move consists of a possible move a stone can make and its MoveType.
+*/
+
 struct Move {
     let stone: Stone!
     let nextPos: Position!
@@ -35,6 +43,10 @@ struct Move {
         self.nextPos = nextPos
         self.moveType = moveType
     }
+    
+    /**
+        Copies this node in order to prevent referencing to the original state, when calculating nodes.
+    */
     
     func clone() -> Move {
         return Move(stone: stone.clone(),nextPos: nextPos.clone(),moveType: moveType)

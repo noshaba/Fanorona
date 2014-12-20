@@ -10,6 +10,7 @@ import UIKit
 
 /**
     The AI determines the computer's next turn by using Alpha-Beta pruning
+    For the utility function the difference between white and black has been chosen, weighted by the number of stones of the opposite color. The number of -999 and 999 has been chosen for goal nodes because they should be weighted heigher than cut off nodes and that would not be possible when you can get values that are higher than 1 or lower than -1 for the utility value. The values for the goal states can be found in the Board class in the enum 'GoalState'.
 */
 
 class AI {
@@ -38,6 +39,7 @@ class AI {
     
     /**
         Calculates the depth of the search tree recursively.
+    
         @param node Rootnode of the tree.
         @return Height of tree.
     */
@@ -71,6 +73,7 @@ class AI {
     
     /**
         Calculates the best possible move by the AI depending on the difficulty level.
+    
         @return Best move depending on difficulty level.
     */
     
@@ -84,6 +87,7 @@ class AI {
     
     /**
         Creates the Alpha-Beta search tree and returns the best possible move determined by the Alpha-Beta pruning algorithm depending on the level of difficulty the AI has.
+    
         @return Best move calculated with Alpha-Beta pruning and depending on AI's difficulty level.
     */
     
@@ -106,15 +110,27 @@ class AI {
         return nil
     }
     
+    /**
+        Function for max player(white)
+    
+        @param node Max node
+        @param alpha Alpha value from node before.
+        @param beta Beta value from node befoe.
+        @return Current value at that node.
+    */
+    
     func maxWhiteValue(node: AINode,var alpha: Int, beta: Int) -> Int {
         if NSDate().timeIntervalSince1970 - startTime >= 10 {
             earlyCut = true
         }
         if node.state.checkGoalState() != .Continue {
+            // if game is not over try to calculate the whole tree
             node.utilVal = node.state.checkGoalState().value!
             println("node value: \(node.utilVal)")
             return node.utilVal
         } else if utilType == .Medium && earlyCut {
+            // if early cut off, then use the evaluation function
+            // evaluation function: difference of white and black stones weighted by the total number of the opponents stones for that state
             if node.state.utilityOpponentCount == 0 {
                 node.utilVal = node.state.utilityDifference
             } else {
@@ -143,16 +159,28 @@ class AI {
         return node.utilVal
     }
     
+    /**
+        Function for min player(black)
+    
+        @param node Min node
+        @param alpha Alpha value from node before.
+        @param beta Beta value from node befoe.
+        @return Current value at that node.
+    */
+    
     func minBlackValue(node: AINode,alpha: Int, var beta: Int) -> Int {
         if NSDate().timeIntervalSince1970 - startTime >= 10 {
             earlyCut = true
         }
         if node.state.checkGoalState() != .Continue {
+            // if game is not over try to calculate the whole tree
             node.utilVal = node.state.checkGoalState().value!
             println("node value: \(node.utilVal)")
             return node.utilVal
         } else if utilType == .Medium && earlyCut {
             if node.state.utilityOpponentCount == 0 {
+            // if early cut off, then use the evaluation function
+            // evaluation function: difference of white and black stones weighted by the total number of the opponents stones for that state
                 node.utilVal = node.state.utilityDifference
             } else {
                 node.utilVal = node.state.utilityDifference/node.state.utilityOpponentCount
@@ -180,10 +208,14 @@ class AI {
         return node.utilVal
     }
     
+    /**
+        AINode is a node in a alpha-beta tree.
+    */
+    
     class AINode {
-        var utilVal: Int!
-        var state: Board
-        var subNodes = [AINode]()
+        var utilVal: Int!           // utility v6alue of that node
+        var state: Board            // state of the board resulting by a possible move
+        var subNodes = [AINode]()   // children of a node
         
         init(state:Board){
             self.state = state
