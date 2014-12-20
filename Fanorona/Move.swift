@@ -45,7 +45,9 @@ struct Move {
     }
     
     /**
-        Copies this node in order to prevent referencing to the original state, when calculating nodes.
+        Copies this object in order to prevent referencing to the original state, when calculating nodes in the alpah beta tree.
+    
+        @return Cloned move
     */
     
     func clone() -> Move {

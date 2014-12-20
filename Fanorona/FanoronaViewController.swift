@@ -319,6 +319,10 @@ class FanoronaViewController: UIViewController{
         }
     }
     
+    /**
+        The function determines the best move for the AI and updates the UI according to the move.
+    */
+    
     func attemptAIMove(){
         let turn = board.turn
         while board.turn == turn {
@@ -338,6 +342,12 @@ class FanoronaViewController: UIViewController{
         }
     }
     
+    /**
+        The function shows the user the goal state and returns back to the start screen.
+    
+        @return Goalstate of the game
+    */
+    
     func checkGoalState() -> Board.GoalState {
         switch(board.checkGoalState()){
         case .Draw:
@@ -356,6 +366,12 @@ class FanoronaViewController: UIViewController{
             return .Continue
         }
     }
+    
+    /**
+        Helper function to display game outcome to the user.
+        
+        @param Message to display for the user.
+    */
     
     func alertView(msg: String){
         var alert = UIAlertController(title: "Game Over", message: msg, preferredStyle: UIAlertControllerStyle.Alert)

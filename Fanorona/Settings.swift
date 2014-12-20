@@ -8,6 +8,10 @@
 
 import UIKit
 
+/**
+    Static GameSettings enum to delegate to the FanoronaViewController the current settings.
+*/
+
 struct GameSettings{
     static var boardWidth = 9
     static var boardHeight = 5
@@ -15,6 +19,10 @@ struct GameSettings{
     static var aiColor = UIColor.blackColor()
     static var aiLevel = AI.UtilType.Medium
 }
+
+/**
+    Settings class to change the current settings of the game.
+*/
 
 class Settings: UIViewController {
     
@@ -30,6 +38,10 @@ class Settings: UIViewController {
     
     @IBOutlet weak var aiLevelLabel: UILabel!
     @IBOutlet weak var aiLevelControl: UISegmentedControl!
+    
+    /**
+        Initializes the game settings when the window loads.
+    */
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,15 +73,31 @@ class Settings: UIViewController {
         }
     }
     
+    /**
+        Changes the width of the board.
+    
+        @param UIStepper from the storyboard.
+    */
+    
     @IBAction func changeWidth(sender: UIStepper) {
         boardWidth.text = "\(Int(sender.value))"
         GameSettings.boardWidth = Int(sender.value)
         
     }
+    /**
+        Changes the height of the board.
+    
+        @param UIStepper from the storyboard.
+    */
     @IBAction func changeHeight(sender: UIStepper) {
         boardHeight.text = "\(Int(sender.value))"
         GameSettings.boardHeight = Int(sender.value)
     }
+    /**
+        Changes the opponent of the game and hides AI options when 'player' is selected.
+    
+        @param UISegmentedControl fUISegmentedControl
+    */
     @IBAction func changeOpponent(sender: UISegmentedControl) {
         GameSettings.opponentIsAI = sender.selectedSegmentIndex == 0
         if GameSettings.opponentIsAI {
@@ -84,6 +112,11 @@ class Settings: UIViewController {
             aiLevelControl.hidden = true
         }
     }
+    /**
+        Changes the opponent's color.
+    
+        @param UISegmentedControl from the storyboard.
+    */
     @IBAction func changeOpponentColor(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             GameSettings.aiColor = UIColor.blackColor()
@@ -91,6 +124,11 @@ class Settings: UIViewController {
             GameSettings.aiColor = UIColor.whiteColor()
         }
     }
+    /**
+        Changes the AI difficulty level.
+    
+        @param UISegmentedControl from the storyboard.
+    */
     @IBAction func changeAILevel(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0: GameSettings.aiLevel = AI.UtilType.Easy

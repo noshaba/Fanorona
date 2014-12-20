@@ -28,7 +28,7 @@ class Board {
     var state = [Stone]()
     // determines if a stone can do a successive capture
     var multiMovePos: Position?
-    // determines the
+    // determines the difference between the number of white and black stones.
     var utilityDifference: Int{
         var white = 0
         var black = 0
@@ -41,6 +41,7 @@ class Board {
         }
         return white - black
     }
+    // determines the number of the opponent's stones.
     var utilityOpponentCount: Int {
         var count = 0
         for stone in state {
@@ -50,6 +51,10 @@ class Board {
         }
         return count
     }
+    
+    /**
+        Goalstates for the game.
+    */
     
     enum GoalState: Printable{
         case Draw
@@ -66,10 +71,12 @@ class Board {
             }
         }
         
+        // The number of -999 and 999 has been chosen for goal nodes because they should be weighted heigher than cut off nodes and that would not be possible when you can get values that are higher than 1 or lower than -1 for the utility value. The values for the goal states can be found in the Board class in the enum 'GoalState'.
+        
         var value: Int? {
             switch self {
             case .Draw: return 0
-            case .WhiteWon: return 999
+            case .WhiteWon: return 999  
             case .BlackWon: return -999
             default:
                 return nil
@@ -77,16 +84,34 @@ class Board {
         }
     }
     
+    /**
+        Default initilizer.
+    */
+    
     init(){
         move = 0
         turn = UIColor.whiteColor()
     }
+    
+    /**
+        Resets the board to the starting settings.
+    
+        @param size in x direction
+        @param size in y direction
+    */
     
     func reset(x: Int, y: Int){
         turn = UIColor.whiteColor()
         multiMovePos = nil
         initWithSize(x,y: y)
     }
+    
+    /**
+        Initiliazes the board with a board width and height.
+    
+        @param size in x direction
+        @param size in y direction
+    */
     
     private func initWithSize(x: Int, y: Int){
         move = 0
@@ -134,6 +159,12 @@ class Board {
         }
     }
     
+    /**
+        Changes the current turn to the other player's turn.
+    
+        @param One player's turn.
+    */
+    
     func alternateTurn(turn: UIColor){
         if turn == UIColor.blackColor(){
             self.turn = UIColor.whiteColor()
@@ -141,6 +172,12 @@ class Board {
             self.turn = UIColor.blackColor()
         }
     }
+    
+    /**
+        Copies this object in order to prevent referencing to the original state, when calculating nodes in the alpah beta tree.
+    
+        @return Cloned board
+    */
     
     func clone() -> Board{
         let board = Board()
@@ -158,6 +195,14 @@ class Board {
         return board
     }
     
+    /**
+        Returns the stone when it is found in the state of the board. Returns 'nil' if the stone was not found.
+    
+        @param x-coordinate of the searched stone
+        @param y-coordinate of the searched stone
+        @return Stone or nil
+    */
+    
     func getStone(x: Int, y: Int) -> Stone? {
         for stone in state {
             if stone.x == x && stone.y == y {
@@ -166,6 +211,14 @@ class Board {
         }
         return nil
     }
+    
+    /**
+        Checks whether a position is empty or not.
+    
+        @param x-coordinate of position
+        @param y-coordinate of position
+        @return true when the position is empty
+    */
     
     func posIsEmpty(x: Int, y: Int) -> Bool {
         for stone in state {
@@ -176,9 +229,24 @@ class Board {
         return true
     }
     
+    /**
+        Checks whether a position is in the given board height and width of a board.
+    
+        @param x-coordinate of position
+        @param y-coordinate of position
+        @return true when the position is within those limits.
+    */
+    
     func posIsValid(x: Int, y:Int) -> Bool {
         return x >= MIN_X && x <= MAX_X && y >= MIN_Y && y <= MAX_Y
     }
+    
+    /**
+        Checks whether a turn is a Paika turn or not.
+    
+        @param color of player
+        @return true if Paika
+    */
     
     func isPaika(turn: UIColor) -> Bool {
         var stones = [Stone]()
@@ -195,6 +263,13 @@ class Board {
         return true
     }
     
+    /**
+        Checks whether a stone is able to capture or not.
+    
+        @param Stone that shall be checked.
+        @return true if able to capture
+    */
+    
     func ableToCapture(stone: Stone) -> Bool {
         var possibleMoves = getPossibleMoves(stone)
         for nextPos in possibleMoves {
@@ -204,6 +279,13 @@ class Board {
         }
         return false
     }
+    
+    /**
+        Calculates the possible moves for one stone (no successive captures)
+    
+        @param Stone that shall be checked
+        @return Close fields that are valid to go
+    */
     
     func getPossibleMoves(stone: Stone) -> [Position] {
         let currentX = stone.x
@@ -225,6 +307,15 @@ class Board {
         }
         return possibleMoves
     }
+    
+    /**
+        Checks whether a move is able to capture or not. If it is it determines whether is a withdrawal capture or approach capture or if both is possible.
+    
+        @param Stone that's move shall be checked.
+        @param next x-coordinate of the stone
+        @param next y-coordinate of the stone
+        @return type of move
+    */
     
     func moveIsAbleToCapture(stone: Stone, nextX: Int, nextY: Int) -> MoveType {
         let currentX = stone.x
@@ -253,6 +344,12 @@ class Board {
         return .Paika
     }
     
+    /**
+        Calculates all the possible moves from a stone (with successive captures)
+    
+        @return possible moves of stone
+    */
+    
     func getAllPossibleMoves() -> [Move] {
         var moves = [Move]()
         var stones = [Stone]()
@@ -271,6 +368,7 @@ class Board {
                 if(isPaika(turn)){
                     moves.append(Move(stone: stone,nextPos: position,moveType: moveStone(stone,nextX: position.x,nextY: position.y)))
                 } else {
+                    // Paika moves are not included
                     if moveIsAbleToCapture(stone, nextX: position.x, nextY: position.y) == .Paika {
                         continue
                     }
@@ -280,6 +378,10 @@ class Board {
         }
         return moves
     }
+    
+    /**
+         Moves the stone from one position to another and determines the resulting move type.
+    */
     
     func moveStone(stone: Stone, nextX: Int, nextY: Int) -> MoveType {
         if turn != stone.color {
@@ -337,6 +439,12 @@ class Board {
         return .Err
     }
     
+    /**
+        Updates the board according to the move applied to one stone.
+    
+        @param next move of stone
+    */
+    
     func updateBoard(nextMove: Move){
         let stone = nextMove.stone
         let nextX = nextMove.nextPos.x
@@ -344,6 +452,15 @@ class Board {
         let moveType = nextMove.moveType
         updateBoard(moveType, stone: stone, nextX: nextX, nextY: nextY)
     }
+    
+    /**
+        Updates the board according to the move applied to one stone.
+    
+        @param move type of next move
+        @param stone that shall be moved
+        @param next x-coordinate of the stone
+        @param next y-coordinate of the stone
+    */
     
     func updateBoard(moveType: MoveType, stone: Stone, nextX: Int, nextY: Int){
         let currentX = stone.x
@@ -425,10 +542,22 @@ class Board {
         checkGoalState()
     }
     
+    /**
+        Removes a stone from the board
+    
+        @param Stone
+    */
+    
     func removeStone(stone: Stone){
         state.removeAtIndex(find(state,stone)!)
         stone.button.removeFromSuperview()
     }
+    
+    /**
+        Determines the goalstate of the board.
+    
+        @return goal state
+    */
     
     func checkGoalState() -> GoalState {
         var whiteCount = 0
